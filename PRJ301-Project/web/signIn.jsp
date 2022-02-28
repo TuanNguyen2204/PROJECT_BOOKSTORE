@@ -17,12 +17,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="fonts/icomoon/style.css">
-        <link rel="stylesheet" href="css/owl.carousel.min.css">
-
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" 
-              integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+        <!-- Bootstrap 4 -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
         <!-- Style -->
         <link rel="stylesheet" href="css/signIn.css">
@@ -78,7 +77,7 @@
                                     <input type="submit" value="Log In" class="btn btn-block btn-outline-secondary" id="btn-primary"> 
 
 
-                                    <!--<span class="ml-auto"><a href="home" class="forgot-pass">Back to Home</a></span>--> 
+                                    <span class="ml-auto"><a href="home" class="forgot-pass">Back to Home</a></span> 
 
                                 </form>
                             </div>
@@ -89,12 +88,6 @@
 
 
         </div>
-
-
-
-        <script src="js/jquery-3.2.1.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
     </body>
 </html>
 
