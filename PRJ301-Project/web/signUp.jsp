@@ -26,8 +26,8 @@
     </head>
    <body>
         <div class="login">
-            <div class="bg order-1 order-md-2" style="background-image: url('images/banner-01.png');"></div>
-            <div class="contents order-2 order-md-1">
+            <div class="bg" style="background-image: url('images/banner-01.png');"></div>
+            <div class="contents">
 
                 <div class="container">
                     <div class="row align-items-center justify-content-center">
@@ -60,7 +60,6 @@
                                     <div class="row md-12">
                                         <div class="form-group col-md-6">
                                             <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="">
-                                            <div class="help-block with-errors"></div>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <input type="password" class="form-control" name="repassword" id="repassword" placeholder="Re-password" required="">
