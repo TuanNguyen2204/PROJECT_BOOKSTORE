@@ -4,10 +4,17 @@
     Author     : Tuan
 --%>
 
+<%@page import="model.Account"%>
+<%@page import="dal.AccountDAL"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
+<%
+    AccountDAL aDAL = new AccountDAL();
+    Account curAcc = aDAL.getAccountByUsername((String)session.getAttribute("user"));
+    request.setAttribute("curAcc", curAcc);
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -69,6 +76,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 d-flex justify-content-between">
+                        <h2><c:out value="@${curAcc.username}"/> </h2>
                         <ul class="breadcrumb d-flex align-items-center">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item active"> Profile </li>
@@ -91,27 +99,27 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="name">Fullname: </label>
-                                            <input type="text" class="form-control" id="name" name="name" required data-error="Please enter your name" readonly="">
+                                            <input type="text" class="form-control" id="name" name="name" required data-error="Please enter your name" value="<c:out value="${curAcc.fullname}"/>" readonly="">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="email">Email: </label>
-                                            <input type="email" id="email" class="form-control" name="email" required data-error="Please enter your email" required="">
+                                            <input type="email" id="email" class="form-control" name="email" required data-error="Please enter your email" value="<c:out value="${curAcc.email}"/>"  required="">
                                             <div class="badge badge-danger" id="emailFail"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="phone">Phone number: </label>
-                                            <input type="text" class="form-control" id="phone" name="phone" required="">
+                                            <input type="text" class="form-control" id="phone" name="phone" value="<c:out value="${curAcc.phone}"/>"  required="">
                                             <div class="badge badge-danger" id="phoneFail"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="address">Address: </label>
-                                            <input type="text" class="form-control" id="address" name="address" required data-error="Please enter your Subject" required="">
+                                            <input type="text" class="form-control" id="address" name="address" required data-error="Please enter your Subject" value="<c:out value="${curAcc.address}"/>"  required="">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -146,7 +154,7 @@
                     <div class="row d-flex justify-content-around">
                         <div class="col-lg-4 col-md-12 col-sm-12">
                             <div class="footer-content">
-                                <h3>Office Address</h3>
+                                <h3 style="margin-left: 30px">Office Address</h3>
                                 <ul class="footer-content__address">
                                     <li>Trường Đại học FPT Hà Nội</li>
                                     <li>Km29 - Đại lộ Thăng Long</li>
