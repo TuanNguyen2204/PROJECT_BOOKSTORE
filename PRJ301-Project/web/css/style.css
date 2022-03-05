@@ -28,7 +28,7 @@ nav.navbar ul > li > a{
     font-weight: 700;
     font-size: 16px;
     text-transform: uppercase;
-
+    color: slateblue;
 }
 .myCart p{
     display: inline-block;
