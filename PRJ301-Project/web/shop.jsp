@@ -4,8 +4,17 @@
     Author     : Tuan
 --%>
 
+<%@page import="model.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+<%
+    String user = (String) session.getAttribute("user");
+    String pass = (String) session.getAttribute("pass");
+    Account acc = new Account(user, pass);
+    String catid = request.getParameter("catid");
+    session.setAttribute("catid", catid);
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -39,20 +48,40 @@
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                                 <!--link to home page-->
-                                <a class="nav-link" href="home">Home</a>
+                                <a class="nav-link active" href="home">Home</a>
                             </li>
-                            <li class="nav-item active">
+                            <li class="nav-item ">
                                 <!--link to account page-->
-                                <a class="nav-link" href="account">Account <i class="fas fa-user-circle"></i></a>
+                                <c:choose>
+                                    <c:when test="${sessionScope.user == null || sessionScope.pass == null}">
+                                        ${'<a class="nav-link active" href="signin">Sign In <i class="fas fa-sign-in-alt"></i></a>'}
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${'<a class="nav-link active" href="account.jsp">Account <i class="fas fa-user-circle"></i></a>'}
+                                    </c:otherwise>
+                                </c:choose>
+                                <!--<a class="nav-link" href="account">Account <i class="fas fa-user-circle"></i></a>-->
                             </li>
                         </ul>
                     </div>
                     <div class="myCart">
                         <!--link to cart-->
-                        <a href="cart.jsp">
-                            <i class="fa fa-shopping-bag"></i>
-                            <p>My Cart</p>
-                        </a>
+                        <c:choose>
+                            <c:when test="${sessionScope.user == null || sessionScope.pass == null}">
+                                <a href="signin">
+                                    <i class="fa fa-shopping-bag"></i>
+                                    <span class="badge"></span>
+                                    <p>My Cart</p>
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="cart">
+                                    <i class="fa fa-shopping-bag"></i>
+                                    <span class="badge"></span>
+                                    <p>My Cart</p>
+                                </a>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </nav>
@@ -116,72 +145,19 @@
 
                         <div class="product-container-box">
                             <div class="row">
+                                <c:forEach var="book" items="${bookList}">
                                 <div class="col-lg-4 mb-4">
                                     <div class="product-single">
                                         <div>
-                                            <img src="products/1984.jpg" class="img-fluid" alt="Image">
+                                            <img src="products/${book.image}" alt="Product image">
                                             <div class="product-action d-flex justify-content-between">
-                                                <a href="#" target="_blank" data-toggle="tooltip" data-placement="right" title="Add to cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
-                                                <a href="#" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                <a href="detail?pid=${book.pid}" target="_blank" data-toggle="tooltip" data-placement="right" title="Add to cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+                                                <a href="home?catid=${catid}&pid=${book.pid}&amount=1" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                 <div class="col-lg-4 mb-4">
-                                    <div class="product-single">
-                                        <div>
-                                            <img src="products/1984.jpg" class="img-fluid" alt="Image">
-                                            <div class="product-action d-flex justify-content-between">
-                                                <a href="#" target="_blank" data-toggle="tooltip" data-placement="right" title="Add to cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
-                                                <a href="#" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                 <div class="col-lg-4 mb-4">
-                                    <div class="product-single">
-                                        <div>
-                                            <img src="products/1984.jpg" class="img-fluid" alt="Image">
-                                            <div class="product-action d-flex justify-content-between">
-                                                <a href="#" target="_blank" data-toggle="tooltip" data-placement="right" title="Add to cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
-                                                <a href="#" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                 <div class="col-lg-4 mb-4">
-                                    <div class="product-single">
-                                        <div>
-                                            <img src="products/1984.jpg" class="img-fluid" alt="Image">
-                                            <div class="product-action d-flex justify-content-between">
-                                                <a href="#" target="_blank" data-toggle="tooltip" data-placement="right" title="Add to cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
-                                                <a href="#" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                 <div class="col-lg-4 mb-4">
-                                    <div class="product-single">
-                                        <div>
-                                            <img src="products/1984.jpg" class="img-fluid" alt="Image">
-                                            <div class="product-action d-flex justify-content-between">
-                                                <a href="#" target="_blank" data-toggle="tooltip" data-placement="right" title="Add to cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
-                                                <a href="#" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                 <div class="col-lg-4 mb-4">
-                                    <div class="product-single">
-                                        <div>
-                                            <img src="products/1984.jpg" class="img-fluid" alt="Image">
-                                            <div class="product-action d-flex justify-content-between">
-                                                <a href="#" target="_blank" data-toggle="tooltip" data-placement="right" title="Add to cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
-                                                <a href="#" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>

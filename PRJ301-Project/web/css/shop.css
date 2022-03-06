@@ -29,11 +29,11 @@
 } 
 .product-filter hr{
     position: absolute;
-    width: 100px;
+    width: 80px;
     height: 1px;
     background-color: cadetblue;
     top: 9px;
-    left: 76px;
+    left: 86px;
 }
 
 .product-filter .list-group select{
@@ -87,7 +87,7 @@
 }
 
 .product-single img{
-
+    height: 400px;
 }
 .product-single:hover img{
     box-shadow:

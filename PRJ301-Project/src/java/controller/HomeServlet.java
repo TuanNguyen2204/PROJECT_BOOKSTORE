@@ -5,18 +5,27 @@
  */
 package controller;
 
+import dal.AccountDAL;
+import dal.ProductDAL;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Product;
 
 /**
  *
  * @author Tuan
  */
 public class HomeServlet extends HttpServlet {
+
+    HashMap<String, Integer> hashCart = new HashMap<String, Integer>();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,7 +43,7 @@ public class HomeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeServlet</title>");            
+            out.println("<title>Servlet HomeServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet HomeServlet at " + request.getContextPath() + "</h1>");
@@ -55,7 +64,31 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter pr = response.getWriter();
+        AccountDAL aDAL = new AccountDAL();
+        ProductDAL pDAL = new ProductDAL();
+        HttpSession session = request.getSession();
+//        -------------------------------------------
+        String username = (String) session.getAttribute("user");
+        String password = (String) session.getAttribute("pass");
+        String search = (String) request.getParameter("search");
+
+        String category = request.getParameter("catid");
+        List<Product> bookList = new ArrayList<>();
+        //        -------------------------------------------        
+        if (category == null || category.equals("")) {
+            bookList = pDAL.getAllProduct();
+            if (search == null || search.equals("")) {
+                bookList = pDAL.getAllProduct();
+            } else {
+                bookList = pDAL.getProductBySerch(search);
+            }
+        } else {
+            bookList = pDAL.getProductByCategory(category);
+        }
+        request.setAttribute("bookList", bookList);
+        request.getRequestDispatcher("shop.jsp").include(request, response);
     }
 
     /**

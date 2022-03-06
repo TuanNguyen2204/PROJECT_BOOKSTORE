@@ -16,12 +16,18 @@ nav.navbar ul > li > a{
     color: #000000;
     text-transform: uppercase;
 }
-.navbar-light .navbar-nav .active>.nav-link{
+.navbar-light .navbar-nav .nav-link.active{
     color: brown;
+}
+.navbar-light .navbar-nav .nav-link.active:hover{
+    color: coral;
 }
 .myCart{
     height: 27px;
     margin-left: 10px;
+}
+.myCart:hover a{
+    color: coral;
 }
 .myCart a{
     text-decoration: none;
