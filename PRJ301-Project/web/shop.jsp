@@ -111,10 +111,10 @@
                                 Categories
                             </h3>
                             <div class="list-group list-group-flush">
-                                <a href="home" class="list-group-item list-group-item-action default"> All </a>
-                                <a href="home?catid=cat1" class="list-group-item list-group-item-action" value="Literature"> Literature </a>
-                                <a href="home?catid=cat2" class="list-group-item list-group-item-action" value="Mystery"> Mystery </a>
-                                <a href="home?catid=cat3" class="list-group-item list-group-item-action" value="Romance"> Romance </a>
+                                <a href="home" class="list-group-item list-group-item-action ${a0}"> All </a>
+                                <a href="home?catid=cat1" class="list-group-item list-group-item-action ${a1}" value="Literature"> Literature </a>
+                                <a href="home?catid=cat2" class="list-group-item list-group-item-action ${a2}" value="Mystery"> Mystery </a>
+                                <a href="home?catid=cat3" class="list-group-item list-group-item-action ${a3}" value="Romance"> Romance </a>
                             </div>
                         </div>
                         <div class="product-filter">
@@ -126,9 +126,9 @@
                                 <form action="home">
                                     <select name="sort" class="text-center">
                                         <option value="">--Please choose an option--</option>
-                                        <option value="price">Price</option>
-                                        <option value="bestSeller">Best Seller</option>
-                                        <option value="name">Name</option>
+                                        <option value="price" ${price}>Price</option>
+                                        <option value="bestSeller" ${best}>Best Seller</option>
+                                        <option value="name" ${name}>Name</option>
                                     </select>
                                     <button type="submit"> Apply </button>
                                 </form>
@@ -146,17 +146,17 @@
                         <div class="product-container-box">
                             <div class="row">
                                 <c:forEach var="book" items="${bookList}">
-                                <div class="col-lg-4 mb-4">
-                                    <div class="product-single">
-                                        <div>
-                                            <img src="products/${book.image}" alt="Product image">
-                                            <div class="product-action d-flex justify-content-between">
-                                                <a href="detail?pid=${book.pid}" target="_blank" data-toggle="tooltip" data-placement="right" title="Add to cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
-                                                <a href="home?catid=${catid}&pid=${book.pid}&amount=1" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                    <div class="col-lg-4 mb-4">
+                                        <div class="product-single">
+                                            <div>
+                                                <img src="products/${book.image}" alt="Product image">
+                                                <div class="product-action d-flex justify-content-between">
+                                                    <a href="detail?pid=${book.pid}" target="_blank" data-toggle="tooltip" data-placement="right" title="Add to cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+                                                    <a href="home?catid=${catid}&pid=${book.pid}&amount=1" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                                 </c:forEach>
                             </div>
                         </div>

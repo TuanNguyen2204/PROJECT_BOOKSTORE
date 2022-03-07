@@ -75,6 +75,7 @@ public class HomeServlet extends HttpServlet {
         String search = (String) request.getParameter("search");
 
         String category = request.getParameter("catid");
+        String sort = (String) request.getParameter("sort");
         List<Product> bookList = new ArrayList<>();
         //        -------------------------------------------        
         if (category == null || category.equals("")) {
@@ -85,6 +86,37 @@ public class HomeServlet extends HttpServlet {
                 bookList = pDAL.getProductBySerch(search);
             }
         } else {
+            bookList = pDAL.getProductByCategory(category);
+        }
+//        request.setAttribute("hovered", "default");
+
+        if (category == null || category.equals("")) {
+            bookList = pDAL.getAllProduct();
+            if (sort == null || sort.equals("")) {
+                bookList = pDAL.getAllProduct();
+            } else {
+                if (sort.equals("price")) {
+                    request.setAttribute("price", "selected");
+                    bookList = pDAL.getProductOrderByPrice(search);
+                }
+                if (sort.equals("bestSeller")) {
+                    request.setAttribute("best", "selected");
+                    bookList = pDAL.getProductOrderByBestSeller(search);
+                }
+                if (sort.equals("name")) {
+                    request.setAttribute("name", "selected");
+                    bookList = pDAL.getProductOrderByName(search);
+                }
+            }
+            //default la de xem category da chon
+            request.setAttribute("a0", "default");
+        } else {
+            if(category.equals("cat1"))
+                request.setAttribute("a1", "default");
+            if(category.equals("cat2"))
+                request.setAttribute("a2", "default");
+            if(category.equals("cat3"))
+                request.setAttribute("a3", "default");
             bookList = pDAL.getProductByCategory(category);
         }
         request.setAttribute("bookList", bookList);

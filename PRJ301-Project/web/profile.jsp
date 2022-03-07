@@ -52,7 +52,7 @@
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                                 <!--link to home page-->
-                                <a class="nav-link" href="home">Home</a>
+                                <a class="nav-link active" href="home">Home</a>
                             </li>
                             <li class="nav-item active">
                                 <!--link to account page-->
@@ -78,7 +78,7 @@
                     <div class="col-lg-12 d-flex justify-content-between">
                         <h2><c:out value="@${curAcc.username}"/> </h2>
                         <ul class="breadcrumb d-flex align-items-center">
-                            <li class="breadcrumb-item"><a href="home">Home</a></li>
+                            <li class="breadcrumb-item"><a href="account">Account</a></li>
                             <li class="breadcrumb-item active"> Profile </li>
                         </ul>
                     </div>

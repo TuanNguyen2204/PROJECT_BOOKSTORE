@@ -76,4 +76,63 @@ public class ProductDAL extends DBContext {
         }
         return null;
     }
+    
+     public List<Product> getProductOrderByPrice(String search) {
+        List<Product> list = new ArrayList<Product>();
+        String xSql = "select * from Products\n" +
+                        "order by price asc";
+        try {
+            PreparedStatement ps = con.prepareStatement(xSql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product(rs.getString("pid"), rs.getString("name"), rs.getString("description"), rs.getFloat("price"), rs.getInt("quantity"), rs.getString("catid"), rs.getString("image"));
+                list.add(p);
+            }
+            
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+     
+      public List<Product> getProductOrderByBestSeller(String search) {
+        List<Product> list = new ArrayList<Product>();
+        String xSql = "select p.*, isnull(sum(b.amount),0)  countAmount\n"
+                + "from Products p left join Bills b on p.pid = b.pid \n"
+                + "group by p.pid, p.name, p.description, p.price, p.quantity, p.catid, p.image\n"
+                + "order by countAmount desc";
+        try {
+            PreparedStatement ps = con.prepareStatement(xSql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product(rs.getString("pid"), rs.getString("name"), rs.getString("description"), rs.getFloat("price"), rs.getInt("quantity"), rs.getString("catid"), rs.getString("image"));
+                int quant = rs.getInt("countAmount"); 
+                list.add(p);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+      
+       public List<Product> getProductOrderByName(String search) {
+        List<Product> list = new ArrayList<Product>();
+        String xSql = "select * from Products\n" +
+                        "order by name asc";
+        try {
+            PreparedStatement ps = con.prepareStatement(xSql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product(rs.getString("pid"), rs.getString("name"), rs.getString("description"), rs.getFloat("price"), rs.getInt("quantity"), rs.getString("catid"), rs.getString("image"));
+                list.add(p);
+            }
+            
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
