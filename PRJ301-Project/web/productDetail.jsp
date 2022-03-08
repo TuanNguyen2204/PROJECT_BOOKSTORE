@@ -1,24 +1,20 @@
 <%-- 
-    Document   : shop
-    Created on : Mar 4, 2022, 11:08:21 PM
+    Document   : productDetail
+    Created on : Mar 7, 2022, 11:58:41 PM
     Author     : Tuan
 --%>
 
-<%@page import="model.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<%
-    String user = (String) session.getAttribute("user");
-    String pass = (String) session.getAttribute("pass");
-    Account acc = new Account(user, pass);
-    String catid = request.getParameter("catid");
-    session.setAttribute("catid", catid);
-%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Shop</title>
+        <title>Detail</title>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!--font-awesome-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -31,6 +27,7 @@
         <!--CSS-->
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
         <link href="css/shop.css" rel="stylesheet" type="text/css"/>
+        <link href="css/productDetail.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <!--Start Main All Page-->
@@ -86,13 +83,12 @@
                 </div>
             </nav>
         </header>
-
         <!--All title box-->
         <div class="all-title-box">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 d-flex justify-content-between">
-                        <h2>All Products</h2>
+                        <h2><c:out value="Book : ${product.name}"/></h2>
                         <ul class="breadcrumb d-flex align-items-center">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
                         </ul>
@@ -101,69 +97,37 @@
             </div>
         </div>
 
-        <!--Book Product-->
-        <div class="shop-box-inner">
-            <div class="container">
+        <!--product book detail-->
+        <div class="product-detail">
+            <div class="container" style="margin: 150px auto">
                 <div class="row">
-                    <div class="col-lg-3 shop-content-left text-center">
-                        <div class="product-category">
-                            <h3>
-                                Categories
-                            </h3>
-                            <div class="list-group list-group-flush">
-                                <a href="home" class="list-group-item list-group-item-action ${a0}"> All </a>
-                                <a href="home?catid=cat1" class="list-group-item list-group-item-action ${a1}" value="Literature"> Literature </a>
-                                <a href="home?catid=cat2" class="list-group-item list-group-item-action ${a2}" value="Mystery"> Mystery </a>
-                                <a href="home?catid=cat3" class="list-group-item list-group-item-action ${a3}" value="Romance"> Romance </a>
-                            </div>
+                    <div class="col-lg-5">
+                        <img src="products/<c:out value="${product.image}"/>">
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="product-desciption">
+                            <h2><c:out value="${product.name}"/></h2>
+                            <h5> $<c:out value="${product.price}"/></h5>
+                            <h4>Description:</h4>
+                            <p><c:out value="${product.description}"/></p>
                         </div>
-                        <div class="product-filter">
-                            <h4>
-                                Sort By
-                            </h4>
-                            <hr>
-                            <div class="list-group">
-                                <form action="home">
-                                    <select name="sort" class="text-center">
-                                        <option value="">--Please choose an option--</option>
-                                        <option value="price" ${price}>Price</option>
-                                        <option value="bestSeller" ${best}>Best Seller</option>
-                                        <option value="name" ${name}>Name</option>
-                                    </select>
-                                    <button type="submit"> Apply </button>
-                                </form>
-                            </div>
+                        <div class="btn btn-outline-danger add-to-cart">
+                            <c:choose>
+                                <c:when test="${sessionScope.user == null || sessionScope.pass == null}">
+                                    <a href="signin" onclick="showAlert()">Add to cart</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="home?catid=${catid}&pid=${product.pid}&amount=1">Add to cart</a>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
-                    <div class="col-lg-9 shop-content-right">
-                        <div class="search-product">
-                            <form action="home" method="get" class="d-flex">
-                                <input class="form-control" placeholder="Search here..." type="text" name="search">
-                                <button type="submit"> <i class="fa fa-search"></i> </button>
-                            </form>
-                        </div>
 
-                        <div class="product-container-box">
-                            <div class="row">
-                                <c:forEach var="book" items="${bookList}">
-                                    <div class="col-lg-4 mb-4">
-                                        <div class="product-single">
-                                            <div>
-                                                <img src="products/${book.image}" alt="Product image">
-                                                <div class="product-action d-flex justify-content-between">
-                                                    <a href="home?catid=${catid}&pid=${book.pid}&amount=1" target="_blank" data-toggle="tooltip" data-placement="right" title="Add to cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
-                                                    <a href="detail?pid=${book.pid}" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
+        <!--end product book detail-->
+
         <!-- Start Footer  -->
         <footer class="text-lg-start bg-light text-muted">
             <div class="footer-main">

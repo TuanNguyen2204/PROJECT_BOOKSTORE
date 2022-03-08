@@ -77,6 +77,26 @@ public class ProductDAL extends DBContext {
         return null;
     }
     
+     public Product getProductById(String pid) {
+        String xSql = "select * from Products where pid = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(xSql);
+            ps.setString(1, pid);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product(rs.getString("pid"), rs.getString("name"), rs.getString("description"), rs.getFloat("price"), rs.getInt("quantity"), rs.getString("catid"), rs.getString("image"));
+                ps.close();
+                rs.close();
+                return p;
+            }
+            ps.close();
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
      public List<Product> getProductOrderByPrice(String search) {
         List<Product> list = new ArrayList<Product>();
         String xSql = "select * from Products\n" +
