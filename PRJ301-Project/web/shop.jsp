@@ -156,7 +156,20 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="inf-text">
+                                            <h6>${book.name}</h6>
+                                            <h6 style="color: brown; font-style: italic">$${book.price}</h6>
+                                        </div>
                                     </div>
+                                </c:forEach>
+                            </div>
+                            <div class="pagination-container">
+                                <c:forEach begin="${1}" end="${requestScope.num}" var="i">
+                                    <a class="${i==page?"active":""}" href="home?page=${i}">
+                                        <span class="page-item ${i==page?"active":""}">
+                                            ${i}
+                                        </span>
+                                    </a>
                                 </c:forEach>
                             </div>
                         </div>

@@ -1,12 +1,4 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Mar 8, 2022, 12:19:04 AM
-    Author     : Tuan
-*/
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;1,300;1,400;1,500&display=swap');
 
 .product-desciption h2{
@@ -21,11 +13,6 @@ and open the template in the editor.
 
 .product-desciption h4{
     color: cadetblue;
-}
-
-.product-desciption p{
-    font-family: 'Poppins';
-    font-weight: 100;
 }
 
 .btn.btn-outline-danger.add-to-cart a{

@@ -1,3 +1,4 @@
+
 .shop-box-inner{
     padding: 50px 0;
     background-color: rgba(117, 165, 85, 0.52);
@@ -118,7 +119,25 @@
     color: #fff;
 }
 
-.product-single:hover{
-
+.inf-text{
+    background: #efefef;
+    text-align: center;
+    margin: 0 20px
 }
+
+.pagination-container{
+    height: 40px;   
+}
+
+.pagination-container a{
+    background: chocolate;
+    padding: 10px;
+    color: white;
+    margin-right: 10px; 
+}
+
+.active{
+    color: #b3b3b3;
+}
+
 

@@ -111,16 +111,61 @@ public class HomeServlet extends HttpServlet {
             //default la de xem category da chon
             request.setAttribute("a0", "default");
         } else {
-            if(category.equals("cat1"))
+            if (category.equals("cat1")) {
                 request.setAttribute("a1", "default");
-            if(category.equals("cat2"))
+            }
+            if (category.equals("cat2")) {
                 request.setAttribute("a2", "default");
-            if(category.equals("cat3"))
+            }
+            if (category.equals("cat3")) {
                 request.setAttribute("a3", "default");
+            }
             bookList = pDAL.getProductByCategory(category);
         }
-        request.setAttribute("bookList", bookList);
-        request.getRequestDispatcher("shop.jsp").include(request, response);
+
+        ///
+        int page, numperpage = 6;
+        int size = bookList.size();
+        int num = (size % 6 == 0 ? (size / 6) : ((size / 6)) + 1);//so trang
+        String xpage = request.getParameter("page");
+        if (xpage == null) {
+            page = 1;
+        } else {
+            page = Integer.parseInt(xpage);
+        }
+        int start, end;
+        start = (page - 1) * numperpage;
+        end = Math.min(page * numperpage, size);
+        List<Product> list = pDAL.getListByPage(bookList, start, end);
+
+        request.setAttribute("page", page);
+        request.setAttribute("num", num);
+        request.setAttribute("bookList", list);
+//        ---------------------------------------------
+        try {
+            String pid = request.getParameter("pid");
+            int amount = Integer.parseInt(request.getParameter("amount"));
+            if (pid == null || amount == 0) {
+                request.getRequestDispatcher("shop.jsp").include(request, response);
+            } else {
+                if (username != null) {
+                    hashCart = pDAL.getCart(username);
+                }
+                if (hashCart.containsKey(pid)) {
+                    hashCart.put(pid, (hashCart.get(pid) + amount));
+                    pDAL.updateCart(username, pid, hashCart.get(pid));
+                    session.setAttribute("hashCart", hashCart);
+                } else {
+                    hashCart.put(pid, amount);
+                    pDAL.addToCart(username, pid, hashCart.get(pid));
+                    session.setAttribute("hashCart", hashCart);
+                }
+                request.getRequestDispatcher("shop.jsp").include(request, response);
+            }
+        } catch (Exception e) {
+            request.getRequestDispatcher("shop.jsp").include(request, response);
+        }
+
     }
 
     /**
