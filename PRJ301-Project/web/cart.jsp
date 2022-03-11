@@ -30,7 +30,7 @@
 
         <!--CSS-->
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="css/cart.css" rel="stylesheet" type="text/css"/>
+        <link href="css/shop.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <!--Start Main All Page-->
@@ -85,7 +85,7 @@
         <div class="cart-box">
             <div class="container">
                 <div class="row">
-                    <table class="table">
+                    <table class="table text-center">
                         <thead class="thead-light">
                             <tr>
                                 <th>Images</th>
@@ -99,7 +99,7 @@
                         <tbody>
                         <c:forEach items="${listCart}" var="cart">
                             <tr>
-                                <td class="thumbnail-img">
+                                <td class="img-product-cart" style="width: 120px">
                                     <a href="detail?pid=${cart.pid}" target="_blank">
                                         <img class="img-fluid" src="products/${cart.image}" alt="product" />
                                     </a>
@@ -114,11 +114,11 @@
                                 </td>
 
                                 <td class="quantity-box">
-                                    <form action="quantityCard?pid=${cart.pid}">
-                                        <input type="hidden" name ="pid" value="${cart.pid}"/>
-                                        <button type="submit" formaction="quantityCard" formmethod="get"  class="btn btn-danger btn-sm"> - </button>
+                                    <form action="quantityCart?pid=${cart.pid}">
+                                        <input  name ="pid" value="${cart.pid}"/>
+                                        <button type="submit" formaction="quantityCart" formmethod="get"  class="btn btn-danger btn-sm"> - </button>
                                         ${cart.quantity}
-                                        <button type="submit" formaction="quantityCard" formmethod="post" class="btn btn-success btn-sm"> + </button>
+                                        <button type="submit" formaction="quantityCart" formmethod="post" class="btn btn-success btn-sm"> + </button>
                                     </form>
                                 </td>
 

@@ -151,7 +151,14 @@
                                             <div>
                                                 <img src="products/${book.image}" alt="Product image">
                                                 <div class="product-action d-flex justify-content-between">
-                                                    <a href="home?catid=${catid}&pid=${book.pid}&amount=1" target="_blank" data-toggle="tooltip" data-placement="right" title="Add to cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+                                                    <c:choose>
+                                                        <c:when test="${sessionScope.user == null || sessionScope.pass == null}">
+                                                            <a href="signin"><i class="fa-solid fa-cart-shopping"></i></a>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <a href="home?catid=${catid}&pid=${book.pid}&amount=1" data-toggle="tooltip" data-placement="right" title="Add to cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                     <a href="detail?pid=${book.pid}" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                 </div>
                                             </div>

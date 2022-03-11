@@ -196,14 +196,15 @@ public class ProductDAL extends DBContext {
         }
     }
 
-    public void updateCart(String username, String pid, Integer get) {
-        String xSql = "DELETE FROM Carts WHERE username=? and pid=?";
+     public void updateCart(String username, String pid, int amount){
+        String xSql = "update Carts set amount=? where username=? and pid=?";
         try {
             PreparedStatement ps = con.prepareStatement(xSql);
-            ps.setString(1, username);
-            ps.setString(2, pid);
+            ps.setInt(1, amount);
+            ps.setString(2, username);
+            ps.setString(3, pid);
             ps.executeUpdate();
-
+            ps.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

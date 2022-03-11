@@ -7,4 +7,10 @@ and open the template in the editor.
     Created on : Mar 8, 2022, 9:30:48 PM
     Author     : Tuan
 */
-
+.name-pr a{
+    color: #000000;
+    font-weight: 300;
+}
+.price-pr{
+    
+}
