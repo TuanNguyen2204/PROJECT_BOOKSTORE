@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <%
     HashMap<String, Integer> hashCart = (HashMap<String, Integer>) session.getAttribute("hashCart");
-%>
+%>  
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -97,41 +97,44 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${listCart}" var="cart">
-                            <tr>
-                                <td class="img-product-cart" style="width: 120px">
-                                    <a href="detail?pid=${cart.pid}" target="_blank">
-                                        <img class="img-fluid" src="products/${cart.image}" alt="product" />
-                                    </a>
-                                </td>
-                                <td class="name-pr">
-                                    <a href="detail?pid=${cart.pid}" target="_blank">
-                                        ${cart.name}
-                                    </a>
-                                </td>
-                                <td class="price-pr">
-                                    <p>$ ${cart.price}</p>
-                                </td>
+                            <c:forEach items="${listCart}" var="cart">
+                                <tr>
+                                    <td class="img-product-cart" style="width: 120px">
+                                        <a href="detail?pid=${cart.pid}" target="_blank">
+                                            <img class="img-fluid" src="products/${cart.image}" alt="product" />
+                                        </a>
+                                    </td>
+                                    <td class="name-pr">
+                                        <a href="detail?pid=${cart.pid}" target="_blank">
+                                            ${cart.name}
+                                        </a>
+                                    </td>
+                                    <td class="price-pr">
+                                        <p>$ ${cart.price}</p>
+                                    </td>
 
-                                <td class="quantity-box">
-                                    <form action="quantityCart?pid=${cart.pid}">
-                                        <input  name ="pid" value="${cart.pid}"/>
-                                        <button type="submit" formaction="quantityCart" formmethod="get"  class="btn btn-danger btn-sm"> - </button>
-                                        ${cart.quantity}
-                                        <button type="submit" formaction="quantityCart" formmethod="post" class="btn btn-success btn-sm"> + </button>
-                                    </form>
-                                </td>
+                                    <td class="quantity-box">
+                                        <form action="quantityCart?pid=${cart.pid}">
+                                            <input  name ="pid" value="${cart.pid}"/>
+                                            <button type="submit" formaction="quantityCart" formmethod="get"  class="btn btn-danger btn-sm"> - </button>
+                                            ${cart.quantity}
+                                            <button type="submit" formaction="quantityCart" formmethod="post" class="btn btn-success btn-sm"> + </button>
+                                            <c:if test="${sessionScope.maxMsg != null}">
+                                                <p>${sessionScope.maxMsg}</p>
+                                            </c:if>
+                                        </form>
+                                    </td>
 
-                                <td class="total-pr">
-                                    <p>$ ${cart.getTotal()}</p>
-                                </td>
-                                <td class="remove-pr">
-                                    <a href="cart?pid=${cart.pid}" method="post">
-                                        <i class="fas fa-times"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </c:forEach>
+                                    <td class="total-pr">
+                                        <p>$ ${cart.getTotal()}</p>
+                                    </td>
+                                    <td class="remove-pr">
+                                        <a href="cart?pid=${cart.pid}" method="post">
+                                            <i class="fas fa-times"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>

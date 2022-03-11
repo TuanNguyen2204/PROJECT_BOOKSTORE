@@ -63,6 +63,7 @@ public class QuantityCart extends HttpServlet {
         ProductDAL pDAL = new ProductDAL();
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("user");
+        session.removeAttribute("maxMsg");
         if (username != null) {
             hashCart = pDAL.getCart(username);
         }
@@ -99,10 +100,19 @@ public class QuantityCart extends HttpServlet {
         if (username != null) {
             hashCart = pDAL.getCart(username);
         }
-        if (hashCart.containsKey(pid)) {
+//        if (hashCart.containsKey(pid) && hashCart.get(pid) < pDAL.getProductById(pid).getQuantity()) {
+//            hashCart.put(pid, (hashCart.get(pid) + 1));
+//            pDAL.updateCart(username, pid, hashCart.get(pid));
+//            session.setAttribute("hashCart", hashCart);
+//            session.removeAttribute("maxMsg");
+//        }
+        if (hashCart.containsKey(pid) && hashCart.get(pid) >= pDAL.getProductById(pid).getQuantity()) {
+            session.setAttribute("maxMsg", "The product has maximum quantity");
+        } else if (hashCart.containsKey(pid) && hashCart.get(pid) < pDAL.getProductById(pid).getQuantity()) {
             hashCart.put(pid, (hashCart.get(pid) + 1));
             pDAL.updateCart(username, pid, hashCart.get(pid));
             session.setAttribute("hashCart", hashCart);
+            session.removeAttribute("maxMsg");
         }
         response.sendRedirect("cart");
     }
