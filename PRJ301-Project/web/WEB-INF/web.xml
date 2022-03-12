@@ -28,6 +28,18 @@
         <servlet-name>QuantityCart</servlet-name>
         <servlet-class>controller.QuantityCart</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <servlet-class>controller.CheckoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PayServlet</servlet-name>
+        <servlet-class>controller.PayServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HistoryServlet</servlet-name>
+        <servlet-class>controller.HistoryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/signin</url-pattern>
@@ -55,6 +67,18 @@
     <servlet-mapping>
         <servlet-name>QuantityCart</servlet-name>
         <url-pattern>/quantityCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PayServlet</servlet-name>
+        <url-pattern>/pay</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HistoryServlet</servlet-name>
+        <url-pattern>/history</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

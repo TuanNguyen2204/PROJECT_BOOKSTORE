@@ -1,16 +1,20 @@
 <%-- 
-    Document   : cart
-    Created on : Mar 8, 2022, 9:26:29 PM
+    Document   : history
+    Created on : Mar 12, 2022, 8:38:40 AM
     Author     : Tuan
 --%>
 
-<%@page import="java.util.HashMap"%>
+<%@page import="model.Bill"%>
+<%@page import="java.util.List"%>
+<%@page import="dal.ProductDAL"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <%
-    HashMap<String, Integer> hashCart = (HashMap<String, Integer>) session.getAttribute("hashCart");
-%>  
+    ProductDAL pDAL = new ProductDAL();
+    List<Bill> listB = pDAL.getAllBillByUser((String) session.getAttribute("user"));
+    request.setAttribute("listBill", listB);
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -61,7 +65,7 @@
                         <a href="cart.jsp">
                             <i class="fa fa-shopping-bag"></i>
                             <p>My Cart</p>
-                            
+
                         </a>
                     </div>
                 </div>
@@ -76,81 +80,66 @@
                         <h2>Cart</h2>
                         <ul class="breadcrumb d-flex align-items-center">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
-                            <li class="breadcrumb-item active">Cart</li>
+                            <li class="breadcrumb-item active">Checkout</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="cart-box">
+        <!-- Start Wishlist  -->
+        <div class="wishlist-box-main">
             <div class="container">
                 <div class="row">
-                    <table class="table text-center">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Images</th>
-                                <th>Book Name</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                                <th>Remove</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${listCart}" var="cart">
-                                <tr>
-                                    <td class="img-product-cart" style="width: 120px">
-                                        <a href="detail?pid=${cart.pid}" target="_blank">
-                                            <img class="img-fluid" src="products/${cart.image}" alt="product" />
-                                        </a>
-                                    </td>
-                                    <td class="name-pr">
-                                        <a href="detail?pid=${cart.pid}" target="_blank">
-                                            ${cart.name}
-                                        </a>
-                                    </td>
-                                    <td class="price-pr">
-                                        <p>$ ${cart.price}</p>
-                                    </td>
+                    <div class="col-lg-12">
+                        <div class="table-main table-responsive">
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Images</th>
+                                        <th>Book Name</th>
+                                        <th>Unit Price </th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th>Date Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${listBill}" var="bill">
+                                        <tr>
+                                            <td class="img-product-cart" style="width: 120px">
+                                                <a href="detail?pid=${bill.pid}">
+                                                    <img class="img-fluid" src="products/${bill.image}" alt="" />
+                                                </a>
+                                            </td>
+                                            <td class="name-pr">
+                                                <a href="detail?pid=${bill.pid}">
+                                                    ${bill.name}
+                                                </a>
+                                            </td>
+                                            <td class="price-pr">
+                                                <p>$ ${bill.price}</p>
+                                            </td>
+                                            <td class="quantity-box">${bill.amount}</td>
+                                            <td class="total-pr">
+                                                <p>$ ${bill.total}</p>
+                                            </td>
+                                            <td class="datetime">
+                                                <p>${bill.date}</p>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
 
-                                    <td class="quantity-box">
-                                        <form action="quantityCart?pid=${cart.pid}">
-                                            <input  name ="pid" value="${cart.pid}"/>
-                                            <button type="submit" formaction="quantityCart" formmethod="get"  class="btn btn-danger btn-sm"> - </button>
-                                            ${cart.quantity}
-                                            <button type="submit" formaction="quantityCart" formmethod="post" class="btn btn-success btn-sm"> + </button>
-                                            <c:if test="${sessionScope.maxMsg != null}">
-                                                <p>${sessionScope.maxMsg}</p>
-                                            </c:if>
-                                        </form>
-                                    </td>
 
-                                    <td class="total-pr">
-                                        <p>$ ${cart.getTotal()}</p>
-                                    </td>
-                                    <td class="remove-pr">
-                                        <a href="cart?pid=${cart.pid}" method="post">
-                                            <i class="fas fa-times"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row my-5">
-                    <div class="col-lg-6 col-sm-6">
-                    </div>
-                    <div class="col-lg-6 col-sm-6">
-                        <div class="update-box">
-                            <a class="btn btn-outline-danger" href="checkout">CHECKOUT</a>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-         
+        <!-- End Wishlist -->
+
         <!-- Start Footer  -->
         <footer class="text-lg-start bg-light text-muted">
             <div class="footer-main">
@@ -222,3 +211,4 @@
 
     </body>
 </html>
+

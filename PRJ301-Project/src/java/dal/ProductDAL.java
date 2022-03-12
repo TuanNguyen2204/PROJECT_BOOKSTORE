@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
+import model.Bill;
 import model.Product;
 
 /**
@@ -97,10 +99,10 @@ public class ProductDAL extends DBContext {
         }
         return null;
     }
-    
-     public List<Product> getListByPage(List<Product> list, int start,int end){
-        ArrayList<Product> arr=new ArrayList<>();
-        for(int i=start;i<end;i++){
+
+    public List<Product> getListByPage(List<Product> list, int start, int end) {
+        ArrayList<Product> arr = new ArrayList<>();
+        for (int i = start; i < end; i++) {
             arr.add(list.get(i));
         }
         return arr;
@@ -196,7 +198,7 @@ public class ProductDAL extends DBContext {
         }
     }
 
-     public void updateCart(String username, String pid, int amount){
+    public void updateCart(String username, String pid, int amount) {
         String xSql = "update Carts set amount=? where username=? and pid=?";
         try {
             PreparedStatement ps = con.prepareStatement(xSql);
@@ -210,14 +212,74 @@ public class ProductDAL extends DBContext {
         }
     }
 
-      public void removeProductCart(String username, String pid){
+    public void removeProductCart(String username, String pid) {
         String xSql = "DELETE FROM Carts WHERE username=? and pid=?";
         try {
             PreparedStatement ps = con.prepareStatement(xSql);
             ps.setString(1, username);
             ps.setString(2, pid);
             ps.executeUpdate();
-           
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Bill> getAllBillByUser(String username) {
+
+        List<Bill> listB = new ArrayList<>();
+        String xSql = "select * from Bills b JOIN Products p ON b.pid = p.pid WHERE b.username=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(xSql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bill b = new Bill(rs.getString("bid"), rs.getString("username"), rs.getString("pid"), rs.getDate("date"), rs.getInt("amount"), rs.getFloat("total"), rs.getString("name"), rs.getString("description"), rs.getFloat("price"), rs.getString("catid"), rs.getString("image"));
+                listB.add(b);
+            }
+            return listB;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void removeAllCart(String username) {
+        String xSql = "DELETE FROM Carts WHERE username=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(xSql);
+            ps.setString(1, username);
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void addToBill(String username, String pid, int amount, float total){
+        String xSql = "insert into Bills(bid, username, pid, date, amount, total) values (?, ?, ?, GETDATE(), ?, ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(xSql);
+            ps.setString(1, UUID.randomUUID().toString());
+            ps.setString(2, username);
+            ps.setString(3, pid);
+            ps.setInt(4, amount);
+            ps.setFloat(5, total);
+            ps.executeUpdate();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+     public void DecreaseProduct(Product p, int maxQuantity) {
+        String xSql = "UPDATE Products set quantity = ? where pid = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(xSql);
+            System.out.println("maxQuantity - p.getQuantity()" + (maxQuantity - p.getQuantity()));
+            ps.setInt(1, maxQuantity - p.getQuantity());
+            ps.setString(2,p.getPid());
+            ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }

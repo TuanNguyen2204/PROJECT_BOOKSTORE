@@ -9,7 +9,6 @@ import dal.ProductDAL;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +21,7 @@ import model.Product;
  *
  * @author Tuan
  */
-public class CartServlet extends HttpServlet {
+public class PayServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,10 +39,10 @@ public class CartServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CartServlet</title>");            
+            out.println("<title>Servlet PayServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CartServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PayServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,35 +60,21 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.setContentType("text/html;charset=UTF-8");
-         PrintWriter pr = response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter pr = response.getWriter();
         HttpSession session = request.getSession();
         ProductDAL pDAL = new ProductDAL();
-        String rmpid = request.getParameter("pid");
-        try {
-            HashMap<String, Integer> hashCart = (HashMap< String, Integer>) session.getAttribute("hashCart");
-            if (hashCart == null) {
-                hashCart = pDAL.getCart((String) session.getAttribute("user"));
-            }
-            List<Product> listCart = new ArrayList<>();
-            for (String pid : hashCart.keySet()) {
-                Product pCart = pDAL.getProductById(pid);
-                Product pCart_Amout = new Product(pCart.getPid(), pCart.getName(), pCart.getDescription(), pCart.getPrice(), hashCart.get(pid), pCart.getCatid(), pCart.getImage());
-                listCart.add(pCart_Amout);
-            }
-            if (rmpid != null) {
-                pDAL.removeProductCart((String) session.getAttribute("user"), rmpid);
-                session.setAttribute("hashCart", null);
-                response.sendRedirect("cart");
-            }
-            session.setAttribute("listCart", listCart);
-            session.setAttribute("mycart", listCart.size());
-        } catch (Exception e) {
-            request.getRequestDispatcher("cart.jsp").include(request, response);
+        List<Product> listPay = new ArrayList<>();
+        listPay = (List<Product>) session.getAttribute("listCart");
+        pDAL.removeAllCart((String) session.getAttribute("user"));
+        session.setAttribute("listCart", null);
+        for (Product p : listPay) {
+            pDAL.addToBill((String) session.getAttribute("user"), p.getPid(), p.getQuantity(), p.getTotal());
+            
+            int max = pDAL.getProductById(p.getPid()).getQuantity();
+            pDAL.DecreaseProduct(p, max);
         }
-
-        request.getRequestDispatcher("cart.jsp").include(request, response);
-
+        response.sendRedirect("history");
     }
 
     /**
@@ -103,19 +88,8 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       response.setContentType("text/html;charset=UTF-8");
-        PrintWriter pr = response.getWriter();
-        String pid = request.getParameter("pid");
-        HttpSession session = request.getSession();
-        List<Product> listCart = (List<Product>) session.getAttribute("listCart");
-        for (Product p : listCart) {
-            if (p.getPid().equals(pid)) {
-                listCart.remove(p);
-            }
-        }
-        session.setAttribute("listCart", listCart);
+        processRequest(request, response);
     }
-    
 
     /**
      * Returns a short description of the servlet.
