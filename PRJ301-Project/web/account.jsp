@@ -1,20 +1,11 @@
 <%-- 
-    Document   : history
-    Created on : Mar 12, 2022, 8:38:40 AM
+    Document   : account.jsp
+    Created on : Mar 12, 2022, 9:04:03 AM
     Author     : Tuan
 --%>
-
-<%@page import="model.Bill"%>
-<%@page import="java.util.List"%>
-<%@page import="dal.ProductDAL"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<%
-    ProductDAL pDAL = new ProductDAL();
-    List<Bill> listB = pDAL.getAllBillByUser((String) session.getAttribute("user"));
-    request.setAttribute("listBill", listB);
-%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -35,6 +26,7 @@
         <!--CSS-->
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
         <link href="css/shop.css" rel="stylesheet" type="text/css"/>
+        <link href="css/account.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <!--Start Main All Page-->
@@ -80,65 +72,66 @@
                         <h2>Cart</h2>
                         <ul class="breadcrumb d-flex align-items-center">
                             <li class="breadcrumb-item"><a href="home">Home</a></li>
-                            <li class="breadcrumb-item active">Checkout</li>
+                            <li class="breadcrumb-item active">Account</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Start Wishlist  -->
-        <div class="wishlist-box-main">
+        <!-- Start My Account  -->
+        <div class="my-account-box-main">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="table-main table-responsive">
-                            <table class="table text-center">
-                                <thead>
-                                    <tr>
-                                        <th>Images</th>
-                                        <th>Book Name</th>
-                                        <th>Unit Price </th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                        <th>Date Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach items="${listBill}" var="bill">
-                                        <tr>
-                                            <td class="img-product-cart" style="width: 120px">
-                                                <a href="detail?pid=${bill.pid}">
-                                                    <img class="img-fluid" src="products/${bill.image}" alt="" />
-                                                </a>
-                                            </td>
-                                            <td class="name-pr">
-                                                <a href="detail?pid=${bill.pid}">
-                                                    ${bill.name}
-                                                </a>
-                                            </td>
-                                            <td class="price-pr">
-                                                <p>$ ${bill.price}</p>
-                                            </td>
-                                            <td class="quantity-box">${bill.amount}</td>
-                                            <td class="total-pr">
-                                                <p>$ ${bill.total}</p>
-                                            </td>
-                                            <td class="datetime">
-                                                <p>${bill.date}</p>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="account-box">
+                                <div class="service-box">
+                                    <div class="service-icon">
+                                        <a href="profile"> <i class="fas fa-user"></i> </a>
+                                    </div>
+                                    <div class="service-desc">
+                                        <h4>Profile</h4>
+                                        <p>Check or edit your Profile</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="account-box">
+                                <div class="service-box">
+                                    <div class="service-icon">
+                                        <a href="history"><i class="fas fa-clipboard-list"></i> </a>
+                                    </div>
+                                    <div class="service-desc">
+                                        <h4>Purchase History</h4>
+                                        <p>View history</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="account-box">
+                                <div class="service-box">
+                                    <div class="service-icon">
+                                        <a href="logOut.jsp"> <i class="fas fa-sign-out-alt"></i> </a>
+                                    </div>
+                                    <div class="service-desc">
+                                        <h4>Logout</h4>
+                                        <p>Logout</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                    <div class="bottom-box">
+                        <div class="row">
 
-                                </tbody>
-                            </table>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
-        <!-- End Wishlist -->
+        <!-- End My Account -->
 
         <!-- Start Footer  -->
         <footer class="text-lg-start bg-light text-muted">
@@ -211,4 +204,3 @@
 
     </body>
 </html>
-

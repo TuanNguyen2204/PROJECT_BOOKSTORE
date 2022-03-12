@@ -57,7 +57,6 @@
                                         ${'<a class="nav-link active" href="account.jsp">Account <i class="fas fa-user-circle"></i></a>'}
                                     </c:otherwise>
                                 </c:choose>
-                                <!--<a class="nav-link" href="account">Account <i class="fas fa-user-circle"></i></a>-->
                             </li>
                         </ul>
                     </div>
