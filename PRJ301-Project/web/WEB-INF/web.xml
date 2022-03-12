@@ -40,6 +40,10 @@
         <servlet-name>HistoryServlet</servlet-name>
         <servlet-class>controller.HistoryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListProduct</servlet-name>
+        <servlet-class>adminController.AdminListProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/signin</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>HistoryServlet</servlet-name>
         <url-pattern>/history</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListProduct</servlet-name>
+        <url-pattern>/adminlist</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
