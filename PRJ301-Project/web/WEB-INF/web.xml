@@ -56,6 +56,18 @@
         <servlet-name>AdminEditProduct</servlet-name>
         <servlet-class>adminController.AdminEditProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminDeleteCategories</servlet-name>
+        <servlet-class>adminController.AdminDeleteCategories</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAddCategories</servlet-name>
+        <servlet-class>adminController.AdminAddCategories</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminStatistic</servlet-name>
+        <servlet-class>adminController.AdminStatistic</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/signin</url-pattern>
@@ -111,6 +123,18 @@
     <servlet-mapping>
         <servlet-name>AdminEditProduct</servlet-name>
         <url-pattern>/AdminEdit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDeleteCategories</servlet-name>
+        <url-pattern>/AdminDeleteCategories</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddCategories</servlet-name>
+        <url-pattern>/AdminAddCategories</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminStatistic</servlet-name>
+        <url-pattern>/AdminStatistic</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

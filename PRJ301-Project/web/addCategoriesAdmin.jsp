@@ -1,6 +1,6 @@
 <%-- 
-    Document   : addProductAdmin
-    Created on : Mar 13, 2022, 8:10:27 AM
+    Document   : addCategoriesAdmin
+    Created on : Mar 13, 2022, 4:28:46 PM
     Author     : Tuan
 --%>
 
@@ -92,61 +92,24 @@
                 <div class="row">
                     <div class="col-lg-8 col-sm-12">
                         <div class="contact-form-right">
-                            <h2><i class="fas fa-user-tag"></i> Add Product</h2>
-                            <form name="myForm" action="AdminAddProduct" method="post">
+                            <h2><i class="fas fa-user-tag"></i> Add Category</h2>
+                            <form action="AdminAddCategories" method="post">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="name">Id Product: </label>
-                                            <input type="text" class="form-control" id="name" name="pid" required data-error="Please enter your data">
+                                            <label for="name">Id Categories </label>
+                                            <input type="text" class="form-control" id="name" name="catid" required data-error="Please enter your data" value="<c:out value="${requestScope.catid}"/>">
+                                            <p style="color: brown">${requestScope.msg}</p>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="a">Name Product: </label>
-                                            <input type="text" class="form-control" id="a" name="name" required data-error="Please enter your data">
+                                            <label for="a">Category Name </label>
+                                            <input type="text" class="form-control" id="a" name="name" required data-error="Please enter your data" value="<c:out value="${requestScope.name}"/>">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="b">Description </label>
-                                            <input type="text" class="form-control" id="b" name="description" required data-error="Please enter your data">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label> Price</label>
-                                            <input type="number" min="1" step="0.2" class="form-control" name="price" required data-error="Please enter your data">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Quantity </label>
-                                            <input type="number" min="1" step="1" class="form-control" name="quantity" required data-error="Please enter your data">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="d">Category </label>
-                                            <select name="catid" id="d" class="form-control">
-                                                <c:forEach var="c" items="${listCategories}">
-                                                    <option value="${c.catid}">${c.name}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="e">Images </label>
-                                            <input type="file" id="e" class="form-control" name="images"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-outline-warning">ADD TO PRODUCT</button>
+                                        <button type="submit" class="btn btn-outline-warning">ADD Category</button>
                                     </div>
                                 </div>
                             </form>
@@ -224,9 +187,6 @@
             </div>
         </footer>
         <!-- End Footer  -->
-
-
-
     </body>
 </html>
 

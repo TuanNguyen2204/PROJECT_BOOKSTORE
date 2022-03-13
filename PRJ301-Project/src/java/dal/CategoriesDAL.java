@@ -33,4 +33,29 @@ public class CategoriesDAL extends DBContext{
         }
         return null;
     }
+    
+    public void addNewCategory(Categories c){
+        String xSql = "insert into Categories(catid, name) values (?, ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(xSql);
+            ps.setString(1, c.getCatid());
+            ps.setString(2, c.getName());
+            ps.executeUpdate();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+    
+     public void deleteCategoriesByCatid(String catid) {
+        String xSql = "DELETE FROM Categories WHERE catid= ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(xSql);
+            ps.setString(1, catid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

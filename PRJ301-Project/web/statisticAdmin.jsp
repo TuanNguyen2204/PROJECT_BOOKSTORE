@@ -1,13 +1,11 @@
 <%-- 
-    Document   : shop
-    Created on : Mar 4, 2022, 11:08:21 PM
+    Document   : statisticAdmin
+    Created on : Mar 13, 2022, 8:52:53 PM
     Author     : Tuan
 --%>
-
 <%@page import="model.Account"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String user = (String) session.getAttribute("user");
     String pass = (String) session.getAttribute("pass");
@@ -15,10 +13,15 @@
     String catid = request.getParameter("catid");
     session.setAttribute("catid", catid);
 %>
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Shop</title>
+        <title>Admin</title>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!--font-awesome-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -31,9 +34,10 @@
         <!--CSS-->
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
         <link href="css/shop.css" rel="stylesheet" type="text/css"/>
+
     </head>
     <body>
-        <!--Start Main All Page-->
+          <!--Start Main All Page-->
         <header class="main-header">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container">
@@ -42,45 +46,26 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <!--link to home page-->
-                        <a class="navbar-brand" href="home"><img src="images/logo.png" class="logo" alt=""></a>
+                        <a class="navbar-brand" href="adminlist"><img src="images/logo.png" class="logo" alt=""></a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                                 <!--link to home page-->
-                                <a class="nav-link active" href="home">Home</a>
+                                <a class="nav-link active" href="adminlist">Home</a>
                             </li>
-                            <li class="nav-item ">
+                            <li class="nav-item active">
                                 <!--link to account page-->
-                                <c:choose>
-                                    <c:when test="${sessionScope.user == null || sessionScope.pass == null}">
-                                        ${'<a class="nav-link active" href="signin">Sign In <i class="fas fa-sign-in-alt"></i></a>'}
-                                    </c:when>
-                                    <c:otherwise>
-                                        ${'<a class="nav-link active" href="account.jsp">Account <i class="fas fa-user-circle"></i></a>'}
-                                    </c:otherwise>
-                                </c:choose>
+                                <a class="nav-link" href="account.jsp">Account <i class="fas fa-user-circle"></i></a>
                             </li>
                         </ul>
                     </div>
                     <div class="myCart">
                         <!--link to cart-->
-                        <c:choose>
-                            <c:when test="${sessionScope.user == null || sessionScope.pass == null}">
-                                <a href="signin">
-                                    <i class="fa fa-shopping-bag"></i>
-                                    <span class="badge"></span>
-                                    <p>My Cart</p>
-                                </a>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="cart">
-                                    <i class="fa fa-shopping-bag"></i>
-                                    <span class="badge"></span>
-                                    <p>My Cart</p>
-                                </a>
-                            </c:otherwise>
-                        </c:choose>
+                        <a href="cart.jsp">
+                            <i class="fa fa-shopping-bag"></i>
+                            <p>My Cart</p>
+                        </a>
                     </div>
                 </div>
             </nav>
@@ -91,60 +76,24 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 d-flex justify-content-between">
-                        <h2>All Products</h2>
+                        <h2>Statistic</h2>
                         <ul class="breadcrumb d-flex align-items-center">
-                            <li class="breadcrumb-item"><a href="home">Home</a></li>
+                            <li class="breadcrumb-item"><a href="account">Account</a></li>
+                            <li class="breadcrumb-item active"> Statistic </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!--Book Product-->
+        
+         <!--Book Product-->
         <div class="shop-box-inner">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 shop-content-left text-center">
-                        <div class="product-category">
-                            <h3>
-                                Categories
-                            </h3>
-                            <div class="list-group list-group-flush">
-                                <a href="home" class="list-group-item list-group-item-action ${a0}"> All </a>
-                                <a href="home?catid=cat1" class="list-group-item list-group-item-action ${a1}" value="Literature"> Literature </a>
-                                <a href="home?catid=cat2" class="list-group-item list-group-item-action ${a2}" value="Mystery"> Mystery </a>
-                                <a href="home?catid=cat3" class="list-group-item list-group-item-action ${a3}" value="Romance"> Romance </a>
-                            </div>
-                        </div>
-                        <div class="product-filter">
-                            <h4>
-                                Sort By
-                            </h4>
-                            <hr>
-                            <div class="list-group">
-                                <form action="home">
-                                    <select name="sort" class="text-center">
-                                        <option value="">--Please choose an option--</option>
-                                        <option value="price" ${price}>Price</option>
-                                        <option value="bestSeller" ${best}>Best Seller</option>
-                                        <option value="name" ${name}>Name</option>
-                                    </select>
-                                    <button type="submit"> Apply </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-lg-9 shop-content-right">
-                        <div class="search-product">
-                            <form action="home" method="get" class="d-flex">
-                                <input class="form-control" placeholder="Search here..." type="text" name="search">
-                                <button type="submit"> <i class="fa fa-search"></i> </button>
-                            </form>
-                        </div>
-
                         <div class="product-container-box">
                             <div class="row">
-                                <c:forEach var="book" items="${bookList}">
+                                <c:forEach var="book" items="${top3Product}">
                                     <div class="col-lg-4 mb-4">
                                         <div class="product-single">
                                             <div>
@@ -168,15 +117,34 @@
                                         </div>
                                     </div>
                                 </c:forEach>
-                            </div>
-                            <div class="pagination-container">
-                                <c:forEach begin="${1}" end="${requestScope.num}" var="i">
-                                    <a class="${i==page?"active":""}" href="home?page=${i}">
-                                        <span class="page-item ${i==page?"active":""}">
-                                            ${i}
-                                        </span>
-                                    </a>
-                                </c:forEach>
+                                
+                                
+                            <section class="pt-10">
+                                <center>
+                                    <h1 class="pt-3 pb-3"><b>TOP 5 CUSTOMER</b></h1>
+                                </center>
+
+                                <table class="table">
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Full Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Address</th>
+                                        <th>role</th>
+                                    </tr>
+                                    <c:forEach items="${top5User}" var="acc">
+                                        <tr>
+                                            <td>${acc.username}</td>
+                                            <td>${acc.fullname}</td>
+                                            <td>${acc.email}</td>
+                                            <td>${acc.phone}</td>
+                                            <td>${acc.address}</td>
+                                            <td>${acc.role == 1 ? "Admin" : "User"}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
+                            </section>
                             </div>
                         </div>
                     </div>
@@ -188,7 +156,7 @@
             <div class="footer-main">
                 <div class="container">
                     <div class="row d-flex justify-content-around">
-                        <div class="col-lg-4 mb-4 mb-2 col-md-12 col-sm-12">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
                             <div class="footer-content">
                                 <h3 style="margin-left: 30px">Office Address</h3>
                                 <ul class="footer-content__address">
@@ -200,7 +168,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-lg-4 mb-4 mb-2 col-md-12 col-sm-12">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
 
                             <div class="footer-content">
                                 <h3>Social Media</h3>
