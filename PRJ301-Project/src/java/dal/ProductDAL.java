@@ -276,12 +276,30 @@ public class ProductDAL extends DBContext {
         String xSql = "UPDATE Products set quantity = ? where pid = ?";
         try {
             PreparedStatement ps = con.prepareStatement(xSql);
-            System.out.println("maxQuantity - p.getQuantity()" + (maxQuantity - p.getQuantity()));
             ps.setInt(1, maxQuantity - p.getQuantity());
             ps.setString(2,p.getPid());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+     
+      public void addNewProduct(Product p){
+        String xSql = "insert into Products(pid, name, description, price, quantity, catid, image) values (?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(xSql);
+            ps.setString(1, p.getPid());
+            ps.setString(2, p.getName());
+            ps.setString(3, p.getDescription());
+            ps.setFloat(4, p.getPrice());
+            ps.setInt(5, p.getQuantity());
+            ps.setString(6, p.getCatid());
+            ps.setString(7, p.getImage());
+            ps.executeUpdate();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 }

@@ -44,6 +44,10 @@
         <servlet-name>ListProduct</servlet-name>
         <servlet-class>adminController.AdminListProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminAddProduct</servlet-name>
+        <servlet-class>adminController.AdminAddProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/signin</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>ListProduct</servlet-name>
         <url-pattern>/adminlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddProduct</servlet-name>
+        <url-pattern>/AdminAddProduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

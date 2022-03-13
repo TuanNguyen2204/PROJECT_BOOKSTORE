@@ -117,15 +117,18 @@
                             <div class="list-group list-group-flush">
                                 <a href="adminlist" class="list-group-item list-group-item-action"> All </a>
                                 <% for (Categories cat : lsCategories) {
-                                    %>
-                                    <span class="d-flex">
-                                        <a href="adminlist?catid=<%=cat.getCatid()%>" class="list-group-item list-group-item-action" value="<%=cat.getName()%>"> <%=cat.getName()%> </a>
-                                        <a href="AdminDeleteCategories?catid=<%=cat.getCatid()%>" class="list-group-item list-group-item-action" value="<%=cat.getName()%>">delete</a>
-                                    </span>
-                                     <%
-                                        }
-                                    %>
+                                %>
+                                <span class="d-flex">
+                                    <a href="adminlist?catid=<%=cat.getCatid()%>" class="list-group-item list-group-item-action" value="<%=cat.getName()%>"> <%=cat.getName()%> </a>
+                                    <a href="AdminDeleteCategories?catid=<%=cat.getCatid()%>" class="list-group-item list-group-item-action" value="<%=cat.getName()%>">delete</a>
+                                </span>
+                                <%
+                                    }
+                                %>
                             </div>
+                            <a href="AdminAddCategories">
+                                <button type="submit" class="btn btn-success btn-small">Add Categories</button>
+                            </a>
                         </div>
                         <div class="product-filter">
                             <h4>
@@ -171,7 +174,7 @@
                                     <div class="col-lg-4 mb-4">
                                         <div class="product-single">
                                             <div>
-                                                <img src="products/${book.image}" alt="Product image">
+                                                <img src="products/${book.image}" class="img-fluid" alt="Product image">
                                                 <div class="product-action d-flex justify-content-between">
                                                     <c:choose>
                                                         <c:when test="${sessionScope.user == null || sessionScope.pass == null}">
@@ -200,7 +203,7 @@
                                     </div>
                                 </c:forEach>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
