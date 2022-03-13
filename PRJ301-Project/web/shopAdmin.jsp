@@ -48,13 +48,13 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <!--link to home page-->
-                        <a class="navbar-brand" href="home"><img src="images/logo.png" class="logo" alt=""></a>
+                        <a class="navbar-brand" href="adminlist"><img src="images/logo.png" class="logo" alt=""></a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                                 <!--link to home page-->
-                                <a class="nav-link active" href="home">Home</a>
+                                <a class="nav-link active" href="adminlist">Home</a>
                             </li>
                             <li class="nav-item ">
                                 <!--link to account page-->
@@ -99,7 +99,7 @@
                     <div class="col-lg-12 d-flex justify-content-between">
                         <h2>All Products</h2>
                         <ul class="breadcrumb d-flex align-items-center">
-                            <li class="breadcrumb-item"><a href="home">Home</a></li>
+                            <li class="breadcrumb-item"><a href="adminlist">Home</a></li>
                         </ul>
                     </div>
                 </div>
@@ -136,7 +136,7 @@
                             </h4>
                             <hr>
                             <div class="list-group">
-                                <form action="home">
+                                <form action="adminlist">
                                     <select name="sort" class="text-center">
                                         <option value="">--Please choose an option--</option>
                                         <option value="price" ${price}>Price</option>
@@ -150,7 +150,7 @@
                     </div>
                     <div class="col-lg-9 shop-content-right">
                         <div class="search-product">
-                            <form action="home" method="get" class="d-flex">
+                            <form action="adminlist" method="get" class="d-flex">
                                 <input class="form-control" placeholder="Search here..." type="text" name="search">
                                 <button type="submit"> <i class="fa fa-search"></i> </button>
                             </form>

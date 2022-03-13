@@ -302,4 +302,36 @@ public class ProductDAL extends DBContext {
         }
         
     }
+      public void deleteProductByPid(String pid) {
+        String xSql = "DELETE FROM Products WHERE pid= ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(xSql);
+            ps.setString(1, pid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+      public void updateProductById(Product p) {
+        String xSql = "UPDATE Products set name = ? ,"
+                                        + "description = ? , "
+                                        + "price = ? ,"
+                                        + "quantity = ? , "
+                                        + "catid = ?, "
+                                        + "image = ?  "
+                                        + "where pid = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(xSql);
+            ps.setString(1, p.getName());
+            ps.setString(2, p.getDescription());
+            ps.setFloat(3, p.getPrice());
+            ps.setInt(4, p.getQuantity());
+            ps.setString(5, p.getCatid());
+            ps.setString(6, p.getImage());
+            ps.setString(7, p.getPid());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

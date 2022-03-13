@@ -1,6 +1,6 @@
 <%-- 
-    Document   : addProductAdmin
-    Created on : Mar 13, 2022, 8:10:27 AM
+    Document   : editProductAdmin
+    Created on : Mar 13, 2022, 12:38:39 PM
     Author     : Tuan
 --%>
 
@@ -11,10 +11,9 @@
 <!DOCTYPE html>
 <%
     AccountDAL aDAL = new AccountDAL();
-    Account currAcc = aDAL.getAccountByUsername((String) session.getAttribute("user"));
+    Account currAcc = aDAL.getAccountByUsername((String)session.getAttribute("user"));
     request.setAttribute("currAcc", currAcc);
 %>
-<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -92,38 +91,38 @@
                 <div class="row">
                     <div class="col-lg-8 col-sm-12">
                         <div class="contact-form-right">
-                            <h2><i class="fas fa-user-tag"></i> Add Product</h2>
-                            <form action="AdminAddProduct" method="post">
+                            <h2><i class="fas fa-user-tag"></i> Update Product</h2>
+                            <form action="AdminEdit" method="post">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="name">Id Product: </label>
-                                            <input type="text" class="form-control" id="name" name="pid" required data-error="Please enter your data">
+                                            <input type="text" class="form-control" id="name" name="pid" required data-error="Please enter your data" value="<c:out value="${product.pid}"/>" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="a">Name Product: </label>
-                                            <input type="text" class="form-control" id="a" name="name" required data-error="Please enter your data">
+                                            <input type="text" class="form-control" id="a" name="name" required data-error="Please enter your data" value="<c:out value="${product.name}"/>">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="b">Description </label>
-                                            <input type="text" class="form-control" id="b" name="description" required data-error="Please enter your data">
+                                            <input type="text" class="form-control" id="b" name="description" required data-error="Please enter your data" value="<c:out value="${product.description}"/>">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label> Price</label>
-                                            <input type="number" min="1" step="0.2" class="form-control" name="price" required data-error="Please enter your data">
+                                            <input type="number" min="1" step="0.2" class="form-control" name="price" required data-error="Please enter your data" value="<c:out value="${product.price}"/>">
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Quantity </label>
-                                            <input type="number" min="1" step="1" class="form-control" name="quantity" required data-error="Please enter your data">
+                                            <input type="number" min="1" step="1" class="form-control" name="quantity" required data-error="Please enter your data" value="<c:out value="${product.quantity}"/>">
                                         </div>
                                     </div>
 
@@ -131,8 +130,13 @@
                                         <div class="form-group">
                                             <label for="d">Category </label>
                                             <select name="catid" id="d" class="form-control">
-                                                <c:forEach var="c" items="${listCategories}">
-                                                    <option value="${c.catid}">${c.name}</option>
+                                               <c:forEach var="c" items="${listCategories}">
+                                                    <c:if test="${c.catid eq product.catid}">
+                                                        <option value="${c.catid}" selected="">${c.name}</option>
+                                                    </c:if>>
+                                                    <c:if test="${c.catid ne product.catid}">
+                                                        <option value="${c.catid}">${c.name}</option>
+                                                    </c:if>>
                                                 </c:forEach>
                                             </select>
                                         </div>
@@ -146,7 +150,7 @@
                                     </div>
 
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-outline-warning">ADD TO PRODUCT</button>
+                                        <button type="submit" class="btn btn-outline-primary">Update</button>
                                     </div>
                                 </div>
                             </form>
@@ -230,4 +234,3 @@
         <script src="js/profileValidate.js" type="text/javascript"></script>
     </body>
 </html>
-

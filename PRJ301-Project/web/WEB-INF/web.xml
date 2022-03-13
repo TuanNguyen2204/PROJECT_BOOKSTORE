@@ -48,6 +48,14 @@
         <servlet-name>AdminAddProduct</servlet-name>
         <servlet-class>adminController.AdminAddProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminDeleteProduct</servlet-name>
+        <servlet-class>adminController.AdminDeleteProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminEditProduct</servlet-name>
+        <servlet-class>adminController.AdminEditProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/signin</url-pattern>
@@ -95,6 +103,14 @@
     <servlet-mapping>
         <servlet-name>AdminAddProduct</servlet-name>
         <url-pattern>/AdminAddProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDeleteProduct</servlet-name>
+        <url-pattern>/AdminDelete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminEditProduct</servlet-name>
+        <url-pattern>/AdminEdit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
