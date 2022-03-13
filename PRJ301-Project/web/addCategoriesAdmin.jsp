@@ -56,7 +56,7 @@
                             </li>
                             <li class="nav-item active">
                                 <!--link to account page-->
-                                <a class="nav-link" href="account.jsp">Account <i class="fas fa-user-circle"></i></a>
+                                <a class="nav-link" href="accountAdmin.jsp">Account <i class="fas fa-user-circle"></i></a>
                             </li>
                         </ul>
                     </div>

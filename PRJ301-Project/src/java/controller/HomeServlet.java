@@ -72,8 +72,12 @@ public class HomeServlet extends HttpServlet {
 //        -------------------------------------------
         String username = (String) session.getAttribute("user");
         String password = (String) session.getAttribute("pass");
+        if ( aDAL.getRoleByUser(username,password) == 1 ) {
+            request.getRequestDispatcher("adminlist").include(request, response);
+            return; 
+        }
+        
         String search = (String) request.getParameter("search");
-
         String category = request.getParameter("catid");
         String sort = (String) request.getParameter("sort");
         List<Product> bookList = new ArrayList<>();

@@ -1,23 +1,16 @@
 <%-- 
-    Document   : editProductAdmin
-    Created on : Mar 13, 2022, 12:38:39 PM
+    Document   : accountAdmin
+    Created on : Mar 13, 2022, 10:17:00 PM
     Author     : Tuan
 --%>
 
-<%@page import="dal.AccountDAL"%>
-<%@page import="model.Account"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<%
-    AccountDAL aDAL = new AccountDAL();
-    Account currAcc = aDAL.getAccountByUsername((String)session.getAttribute("user"));
-    request.setAttribute("currAcc", currAcc);
-%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Admin</title>
+        <title>Cart</title>
 
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -33,7 +26,8 @@
 
         <!--CSS-->
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
-
+        <link href="css/shop.css" rel="stylesheet" type="text/css"/>
+        <link href="css/account.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <!--Start Main All Page-->
@@ -64,6 +58,7 @@
                         <a href="cart.jsp">
                             <i class="fa fa-shopping-bag"></i>
                             <p>My Cart</p>
+
                         </a>
                     </div>
                 </div>
@@ -75,90 +70,69 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 d-flex justify-content-between">
-                        <h2><c:out value="@${curAcc.username}"/> </h2>
+                        <h2>Cart</h2>
                         <ul class="breadcrumb d-flex align-items-center">
-                            <li class="breadcrumb-item"><a href="account">Account</a></li>
-                            <li class="breadcrumb-item active"> Profile </li>
+                            <li class="breadcrumb-item"><a href="adminlist">Home</a></li>
+                            <li class="breadcrumb-item active">Account</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Start Contact Us  -->
-        <div class="contact-box-main">
+        <!-- Start My Account  -->
+        <div class="my-account-box-main">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-sm-12">
-                        <div class="contact-form-right">
-                            <h2><i class="fas fa-user-tag"></i> Update Product</h2>
-                            <form action="AdminEdit" method="post">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="name">Id Product: </label>
-                                            <input type="text" class="form-control" id="name" name="pid" required data-error="Please enter your data" value="<c:out value="${product.pid}"/>" readonly>
-                                        </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="account-box">
+                                <div class="service-box">
+                                    <div class="service-icon">
+                                        <a href="profile"> <i class="fas fa-user"></i> </a>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="a">Name Product: </label>
-                                            <input type="text" class="form-control" id="a" name="name" required data-error="Please enter your data" value="<c:out value="${product.name}"/>">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="b">Description </label>
-                                            <input type="text" class="form-control" id="b" name="description" required data-error="Please enter your data" value="<c:out value="${product.description}"/>">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label> Price</label>
-                                            <input type="number" min="1" step="0.2" class="form-control" name="price" required data-error="Please enter your data" value="<c:out value="${product.price}"/>">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Quantity </label>
-                                            <input type="number" min="1" step="1" class="form-control" name="quantity" required data-error="Please enter your data" value="<c:out value="${product.quantity}"/>">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="d">Category </label>
-                                            <select name="catid" id="d" class="form-control">
-                                               <c:forEach var="c" items="${listCategories}">
-                                                    <c:if test="${c.catid eq product.catid}">
-                                                        <option value="${c.catid}" selected="">${c.name}</option>
-                                                    </c:if>>
-                                                    <c:if test="${c.catid ne product.catid}">
-                                                        <option value="${c.catid}">${c.name}</option>
-                                                    </c:if>>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="e">Images </label>
-                                            <input type="file" id="e" class="form-control" name="images"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-outline-primary">Update</button>
+                                    <div class="service-desc">
+                                        <h4>Profile</h4>
+                                        <p>Check or edit your Profile</p>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="account-box">
+                                <div class="service-box">
+                                    <div class="service-icon">
+                                        <a href="adminlist"><i class="fas fa-clipboard-list"></i> </a>
+                                    </div>
+                                    <div class="service-desc">
+                                        <h4>Manage Product</h4>
+                                        <p>Manage Product</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="account-box">
+                                <div class="service-box">
+                                    <div class="service-icon">
+                                        <a href="logOut.jsp"> <i class="fas fa-sign-out-alt"></i> </a>
+                                    </div>
+                                    <div class="service-desc">
+                                        <h4>Logout</h4>
+                                        <p>Logout</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="bottom-box">
+                        <div class="row">
+
                         </div>
                     </div>
-                </div>
             </div>
         </div>
+        <!-- End My Account -->
 
         <!-- Start Footer  -->
         <footer class="text-lg-start bg-light text-muted">
@@ -229,8 +203,6 @@
         </footer>
         <!-- End Footer  -->
 
-
-
-        <script src="js/profileValidate.js" type="text/javascript"></script>
     </body>
 </html>
+

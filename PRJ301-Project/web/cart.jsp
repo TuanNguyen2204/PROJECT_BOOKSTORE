@@ -61,7 +61,7 @@
                         <a href="cart.jsp">
                             <i class="fa fa-shopping-bag"></i>
                             <p>My Cart</p>
-                            
+
                         </a>
                     </div>
                 </div>
@@ -86,6 +86,10 @@
         <div class="cart-box">
             <div class="container">
                 <div class="row">
+                    <!--//message-->
+                    <c:if test="${sessionScope.maxMsg != null}">
+                        <h5 style="float: right; color: brown;margin-left: 60%">${sessionScope.maxMsg}</h5>
+                    </c:if>
                     <table class="table text-center">
                         <thead class="thead-light">
                             <tr>
@@ -120,9 +124,6 @@
                                             <button type="submit" formaction="quantityCart" formmethod="get"  class="btn btn-danger btn-sm"> - </button>
                                             ${cart.quantity}
                                             <button type="submit" formaction="quantityCart" formmethod="post" class="btn btn-success btn-sm"> + </button>
-                                            <c:if test="${sessionScope.maxMsg != null}">
-                                                <p>${sessionScope.maxMsg}</p>
-                                            </c:if>
                                         </form>
                                     </td>
 
@@ -150,7 +151,7 @@
                 </div>
             </div>
         </div>
-         
+
         <!-- Start Footer  -->
         <footer class="text-lg-start bg-light text-muted">
             <div class="footer-main">

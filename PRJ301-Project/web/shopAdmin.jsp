@@ -63,7 +63,7 @@
                                         ${'<a class="nav-link active" href="signin">Sign In <i class="fas fa-sign-in-alt"></i></a>'}
                                     </c:when>
                                     <c:otherwise>
-                                        ${'<a class="nav-link active" href="account.jsp">Account <i class="fas fa-user-circle"></i></a>'}
+                                        ${'<a class="nav-link active" href="accountAdmin.jsp">Account <i class="fas fa-user-circle"></i></a>'}
                                     </c:otherwise>
                                 </c:choose>
                             </li>
