@@ -138,7 +138,6 @@ public class ProductDAL extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Product p = new Product(rs.getString("pid"), rs.getString("name"), rs.getString("description"), rs.getFloat("price"), rs.getInt("quantity"), rs.getString("catid"), rs.getString("image"));
-                int quant = rs.getInt("countAmount");
                 list.add(p);
             }
             return list;

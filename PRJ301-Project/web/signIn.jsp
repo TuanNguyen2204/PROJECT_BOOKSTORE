@@ -32,7 +32,6 @@
         <div class="login">
             <div class="bg" style="background-image: url('images/banner-01.png');"></div>
             <div class="contents">
-
                 <div class="container">
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-6">
@@ -43,16 +42,16 @@
                                 <form action="signin" method="post">
                                     <div class="form-group">
 
-                                        <input type="text" class="form-control" placeholder="Username" id="username" name="user" required="">
+                                        <input type="text" value="${username}" class="form-control" placeholder="Username" id="username" name="user" required="">
                                     </div>
                                     <div class="form-group">
 
-                                        <input type="password" class="form-control" placeholder="**********" id="password" name="pass" required="">
+                                        <input type="password" value="${password}" class="form-control" placeholder="**********" id="password" name="pass" required="">
                                     </div>
 
                                     <div class="d-sm-flex mb-5 align-items-center">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <input class="form-check-input" ${(cookie.remember.value eq 'ON')?"checked":""} type="checkbox" name="rememberMe" value="ON" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 Remember me
                                             </label>
@@ -61,11 +60,6 @@
                                     </div>
 
                                     <c:choose>
-                                        <c:when test="${check.equals('success')}">
-                                            ${'Success'}
-                                            <c:redirect url="home"/>
-                                            <br />
-                                        </c:when>
                                         <c:when test="${check.equals('fail')}">
                                             ${'<span class="badge badge-danger">Invalid Username or Password</span> <br/>'}
                                         </c:when>
@@ -73,7 +67,8 @@
                                             <br />
                                         </c:otherwise>
                                     </c:choose>
-
+                                            <!--error mesage filter-->
+                                            <span style="color:red; margin-left: 40%">${message}</span>
                                     <input type="submit" value="Log In" class="btn btn-block btn-outline-secondary" id="btn-primary"> 
 
 

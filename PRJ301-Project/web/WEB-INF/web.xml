@@ -110,7 +110,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListProduct</servlet-name>
-        <url-pattern>/adminlist</url-pattern>
+        <url-pattern>/Adminlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminAddProduct</servlet-name>

@@ -70,7 +70,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 d-flex justify-content-between">
-                        <h2>Cart</h2>
+                        <h2>Account</h2>
                         <ul class="breadcrumb d-flex align-items-center">
                             <li class="breadcrumb-item"><a href="adminlist">Home</a></li>
                             <li class="breadcrumb-item active">Account</li>

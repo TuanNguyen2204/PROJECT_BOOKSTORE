@@ -75,7 +75,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 d-flex justify-content-between">
-                        <h2><c:out value="@${curAcc.username}"/> </h2>
+                        <h2>Edit Product</h2>
                         <ul class="breadcrumb d-flex align-items-center">
                             <li class="breadcrumb-item"><a href="account">Account</a></li>
                             <li class="breadcrumb-item active"> Profile </li>
