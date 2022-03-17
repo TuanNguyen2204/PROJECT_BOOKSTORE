@@ -120,7 +120,7 @@
 
                                     <td class="quantity-box">
                                         <form action="quantityCart?pid=${cart.pid}">
-                                            <input  name ="pid" value="${cart.pid}"/>
+                                            <!--<input  name ="pid" value="${cart.pid}"/>-->
                                             <button type="submit" formaction="quantityCart" formmethod="get"  class="btn btn-danger btn-sm"> - </button>
                                             ${cart.quantity}
                                             <button type="submit" formaction="quantityCart" formmethod="post" class="btn btn-success btn-sm"> + </button>
