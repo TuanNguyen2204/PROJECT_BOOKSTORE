@@ -93,7 +93,7 @@ public class HomeServlet extends HttpServlet {
 //            bookList = pDAL.getProductByCategory(category);
 //        }
 
-        if (category == null || category.equals("")) {
+        if ((category == null || category.equals("")) && (search == null || search.equals(""))) {
             bookList = pDAL.getAllProduct();
             if (sort == null || sort.equals("")) {
                 bookList = pDAL.getAllProduct();
@@ -112,14 +112,9 @@ public class HomeServlet extends HttpServlet {
                 }
             }
 
-            if (search == null || search.equals("")) {
-                bookList = pDAL.getAllProduct();
-            } else {
-                bookList = pDAL.getProductBySearch(search);
-            }
             //default la de xem category da chon
             request.setAttribute("a0", "default");
-        } else {
+        } else if ((sort == null || sort.equals("")) && (search == null || search.equals(""))) {
             if (category.equals("cat1")) {
                 request.setAttribute("a1", "default");
             }
@@ -130,6 +125,12 @@ public class HomeServlet extends HttpServlet {
                 request.setAttribute("a3", "default");
             }
             bookList = pDAL.getProductByCategory(category);
+        } else {
+            if (search == null || search.equals("")) {
+                bookList = pDAL.getAllProduct();
+            } else {
+                bookList = pDAL.getProductBySearch(search);
+            }
         }
 
         ///

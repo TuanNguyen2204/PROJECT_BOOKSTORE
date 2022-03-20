@@ -92,7 +92,8 @@
                 <div class="row">
                     <div class="col-lg-9 shop-content-right">
                         <div class="product-container-box">
-                            <div class="row">
+                            <h1 class="pt-3 pb-3 text-center" style="color: brown"><b>TOP 3 Best Seller Product</b></h1>
+                            <div class="row text-center">
                                 <c:forEach var="book" items="${top3Product}">
                                     <div class="col-lg-4 mb-4">
                                         <div class="product-single">
@@ -121,7 +122,7 @@
                                 
                             <section class="pt-10">
                                 <center>
-                                    <h1 class="pt-3 pb-3"><b>TOP 5 CUSTOMER</b></h1>
+                                    <h1 class="pt-3 pb-3 text-center" style="color: darkred"><i>TOP 5 CUSTOMER</i></h1>
                                 </center>
 
                                 <table class="table">

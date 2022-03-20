@@ -4,6 +4,7 @@
     Author     : Tuan
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -156,7 +157,7 @@
                                         <div class="rounded p-2 bg-light">
                                             <div class="media mb-2 border-bottom">
                                                 <div class="media-body"> <a href="detail?pid=${cart.pid}"> ${cart.name}</a>
-                                                    <div class="small text-muted">Price: $${cart.price} <span class="mx-2">|</span> Qty: ${cart.quantity} <span class="mx-2">|</span> Total: $${cart.getTotal()}</div>
+                                                      <div class="small text-muted">Price: $${cart.price} <span class="mx-2">|</span> Qty: ${cart.quantity} <span class="mx-2">|</span> Total: $${cart.getTotal()}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -184,7 +185,7 @@
                                     <hr>
                                     <div class="d-flex">
                                         <h5 style="color: brown">Grand Total</h5>
-                                        <div class="ml-auto h5"> $ <c:out value="${total}"/> </div>
+                                        <div class="ml-auto h5"> $ <fmt:formatNumber type="number" value="${total}" pattern="##.##"/> </div>
                                     </div>
                                     <hr> </div>
                             </div>

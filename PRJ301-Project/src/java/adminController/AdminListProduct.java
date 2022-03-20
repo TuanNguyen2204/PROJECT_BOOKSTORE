@@ -24,7 +24,7 @@ import model.Product;
  */
 public class AdminListProduct extends HttpServlet {
 
-   HashMap<String, Integer> hashCart = new HashMap<String, Integer>();
+    HashMap<String, Integer> hashCart = new HashMap<String, Integer>();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,37 +40,46 @@ public class AdminListProduct extends HttpServlet {
         String sort = (String) request.getParameter("sort");
         List<Product> bookList = new ArrayList<>();
         //////////////////////////////////////////
-        if (category == null || category.equals("")) {
-            bookList = pDAL.getAllProduct();
-            if (search == null || search.equals("")) {
-                bookList = pDAL.getAllProduct();
-            } else {
-                bookList = pDAL.getProductBySerch(search);
-            }
-        } else {
-            bookList = pDAL.getProductByCategory(category);
-        }
-        if (category == null || category.equals("")) {
+         if ((category == null || category.equals("")) && (search == null || search.equals(""))) {
             bookList = pDAL.getAllProduct();
             if (sort == null || sort.equals("")) {
                 bookList = pDAL.getAllProduct();
             } else {
                 if (sort.equals("price")) {
+                    request.setAttribute("price", "selected");
                     bookList = pDAL.getProductOrderByPrice(search);
                 }
                 if (sort.equals("bestSeller")) {
+                    request.setAttribute("best", "selected");
                     bookList = pDAL.getProductOrderByBestSeller(search);
                 }
                 if (sort.equals("name")) {
+                    request.setAttribute("name", "selected");
                     bookList = pDAL.getProductOrderByName(search);
                 }
             }
-        } else {
+
+            //default la de xem category da chon
+            request.setAttribute("a0", "default");
+        } else if ((sort == null || sort.equals("")) && (search == null || search.equals(""))) {
+            if (category.equals("cat1")) {
+                request.setAttribute("a1", "default");
+            }
+            if (category.equals("cat2")) {
+                request.setAttribute("a2", "default");
+            }
+            if (category.equals("cat3")) {
+                request.setAttribute("a3", "default");
+            }
             bookList = pDAL.getProductByCategory(category);
+        } else {
+            if (search == null || search.equals("")) {
+                bookList = pDAL.getAllProduct();
+            } else {
+                bookList = pDAL.getProductBySearch(search);
+            }
         }
-        
-        
-        
+
         request.setAttribute("bookList", bookList);
         ///////////////////////////////////////////
         try {
@@ -78,8 +87,7 @@ public class AdminListProduct extends HttpServlet {
             int amount = Integer.parseInt(request.getParameter("amount"));
             if (pid == null || amount == 0) {
                 request.getRequestDispatcher("shopAdmin.jsp").include(request, response);
-            } 
-            else {
+            } else {
                 if (username != null) {
                     hashCart = pDAL.getCart(username);
                 }
@@ -99,9 +107,10 @@ public class AdminListProduct extends HttpServlet {
             request.getRequestDispatcher("shopAdmin.jsp").include(request, response);
         }
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 }

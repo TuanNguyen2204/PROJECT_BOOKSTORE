@@ -105,7 +105,7 @@
                                     </div>
                                     <div class="service-desc">
                                         <h4>Manage Product</h4>
-                                        <p>Manage Product</p>
+                                        <p>CRUD Product</p>
                                     </div>
                                 </div>
                             </div>
