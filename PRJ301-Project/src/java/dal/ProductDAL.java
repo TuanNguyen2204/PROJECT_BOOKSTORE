@@ -60,12 +60,12 @@ public class ProductDAL extends DBContext {
         return null;
     }
 
-    public List<Product> getProductBySerch(String search) {
+    public List<Product> getProductBySearch(String search) {
         List<Product> list = new ArrayList<Product>();
         String xSql = "select * from Products where name like ?";
         try {
             PreparedStatement ps = con.prepareStatement(xSql);
-            ps.setString(1, search + "%");
+            ps.setString(1, "%"+search + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Product p = new Product(rs.getString("pid"), rs.getString("name"), rs.getString("description"), rs.getFloat("price"), rs.getInt("quantity"), rs.getString("catid"), rs.getString("image"));

@@ -141,6 +141,10 @@
                                 <button type="submit"> <i class="fa fa-search"></i> </button>
                             </form>
                         </div>
+                        
+                        <c:if test="${bookList.size()==0}">
+                            <h3 style="color: brown">Not found Product like "${searchname}"</h3>
+                        </c:if>
 
                         <div class="product-container-box">
                             <div class="row">

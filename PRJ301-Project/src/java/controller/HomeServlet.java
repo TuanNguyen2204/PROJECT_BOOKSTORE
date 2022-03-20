@@ -72,27 +72,26 @@ public class HomeServlet extends HttpServlet {
 //        -------------------------------------------
         String username = (String) session.getAttribute("user");
         String password = (String) session.getAttribute("pass");
-        if ( aDAL.getRoleByUser(username,password) == 1 ) {
+        if (aDAL.getRoleByUser(username, password) == 1) {
             request.getRequestDispatcher("adminlist").include(request, response);
-            return; 
+            return;
         }
-        
+
         String search = (String) request.getParameter("search");
         String category = request.getParameter("catid");
         String sort = (String) request.getParameter("sort");
         List<Product> bookList = new ArrayList<>();
         //        -------------------------------------------        
-        if (category == null || category.equals("")) {
-            bookList = pDAL.getAllProduct();
-            if (search == null || search.equals("")) {
-                bookList = pDAL.getAllProduct();
-            } else {
-                bookList = pDAL.getProductBySerch(search);
-            }
-        } else {
-            bookList = pDAL.getProductByCategory(category);
-        }
-//        request.setAttribute("hovered", "default");
+//        if (category == null || category.equals("")) {
+//            bookList = pDAL.getAllProduct();
+//            if (search == null || search.equals("")) {
+//                bookList = pDAL.getAllProduct();
+//            } else {
+//                bookList = pDAL.getProductBySearch(search);
+//            }
+//        } else {
+//            bookList = pDAL.getProductByCategory(category);
+//        }
 
         if (category == null || category.equals("")) {
             bookList = pDAL.getAllProduct();
@@ -111,6 +110,12 @@ public class HomeServlet extends HttpServlet {
                     request.setAttribute("name", "selected");
                     bookList = pDAL.getProductOrderByName(search);
                 }
+            }
+
+            if (search == null || search.equals("")) {
+                bookList = pDAL.getAllProduct();
+            } else {
+                bookList = pDAL.getProductBySearch(search);
             }
             //default la de xem category da chon
             request.setAttribute("a0", "default");
@@ -141,7 +146,7 @@ public class HomeServlet extends HttpServlet {
         start = (page - 1) * numperpage;
         end = Math.min(page * numperpage, size);
         List<Product> list = pDAL.getListByPage(bookList, start, end);
-
+        request.setAttribute("searchname", search);
         request.setAttribute("page", page);
         request.setAttribute("num", num);
         request.setAttribute("bookList", list);
