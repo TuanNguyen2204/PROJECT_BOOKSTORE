@@ -157,7 +157,7 @@
                                         <div class="rounded p-2 bg-light">
                                             <div class="media mb-2 border-bottom">
                                                 <div class="media-body"> <a href="detail?pid=${cart.pid}"> ${cart.name}</a>
-                                                      <div class="small text-muted">Price: $${cart.price} <span class="mx-2">|</span> Qty: ${cart.quantity} <span class="mx-2">|</span> Total: $${cart.getTotal()}</div>
+                                                    <div class="small text-muted">Price: $${cart.price} <span class="mx-2">|</span> Qty: ${cart.quantity} <span class="mx-2">|</span> Total: $${cart.getTotal()}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -190,10 +190,10 @@
                                     <hr> </div>
                             </div>
                             <div class="col-12 d-flex shopping-box"> 
-<!--                                <button type="button" class="btn btn-outline-primary">
-                                    <a href="pay" class="">Place Order</a>
-                                </button>-->
-                                <a href="pay" class="btn btn-outline-danger col-lg-3 offset-md-9" role="button" aria-pressed="true">Place Order</a>
+                                <!--                                <button type="button" class="btn btn-outline-primary">
+                                                                    <a href="pay" class="">Place Order</a>
+                                                                </button>-->
+                                <a href="pay" class="btn btn-outline-danger col-lg-3 offset-md-9 delete"  data-confirm="Are you sure to order?">Place Order</a>
                             </div>
                         </div>
                     </div>
@@ -272,6 +272,19 @@
             </div>
         </footer>
         <!-- End Footer  -->
+        <script type="text/javascript">
+            var deleteLinks = document.querySelectorAll('.delete');
+            for (var i = 0; i < deleteLinks.length; i++) {
+                deleteLinks[i].addEventListener('click', function (event) {
+                    event.preventDefault();
 
+                    var choice = confirm(this.getAttribute('data-confirm'));
+
+                    if (choice) {
+                        window.location.href = this.getAttribute('href');
+                    }
+                });
+            }
+        </script>
     </body>
 </html>

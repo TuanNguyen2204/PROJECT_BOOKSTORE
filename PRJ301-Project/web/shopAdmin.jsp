@@ -108,6 +108,18 @@
         <!--Book Product-->
         <div class="shop-box-inner">
             <div class="container">
+                <div class="d-flex mb-3 justify-content-around">
+                    <div class="manage" style="margin-left: 109px">
+                        <form action="AdminManage" method="get">
+                            <button type="submit" class="btn btn-warning btn-lg">Manage Products</button>
+                        </form>
+                    </div>
+                    <div class="static">
+                        <form action="AdminStatistic" method="get">
+                            <button type="submit" class="btn btn-info btn-lg">Statistic</button>
+                        </form>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-3 shop-content-left text-center">
                         <div class="product-category">
@@ -120,7 +132,7 @@
                                 %>
                                 <span class="d-flex">
                                     <a href="adminlist?catid=<%=cat.getCatid()%>" class="list-group-item list-group-item-action" value="<%=cat.getName()%>"> <%=cat.getName()%> </a>
-                                    <a href="AdminDeleteCategories?catid=<%=cat.getCatid()%>" class="list-group-item list-group-item-action" value="<%=cat.getName()%>">delete</a>
+                                    <a href="AdminDeleteCategories?catid=<%=cat.getCatid()%>" class="list-group-item list-group-item-action delete" value="<%=cat.getName()%>" data-confirm="Are you sure to delete this category?"><button type="button" class="btn btn-warning btn-sm">delete</button></a>
                                 </span>
                                 <%
                                     }
@@ -149,6 +161,7 @@
                         </div>
                     </div>
                     <div class="col-lg-9 shop-content-right">
+
                         <div class="search-product">
                             <form action="adminlist" method="get" class="d-flex">
                                 <input class="form-control" placeholder="Search here..." type="text" name="search">
@@ -158,18 +171,18 @@
                         <c:if test="${bookList.size()==0}">
                             <h3 style="color: brown">Not found Product like "${searchname}"</h3>
                         </c:if>
-                        <div class="d-flex my-3 justify-content-around">
-                            <div class="add">
-                                <form action="AdminAddProduct" method="get">
-                                    <button type="submit" class="btn btn-warning btn-lg">Add product</button>
-                                </form>
-                            </div>
-                            <div class="static">
-                                <form action="AdminStatistic" method="get">
-                                    <button type="submit" class="btn btn-info btn-lg">Statistic</button>
-                                </form>
-                            </div>
-                        </div>
+                        <!--                        <div class="d-flex my-3 justify-content-around">
+                                                    <div class="add">
+                                                        <form action="AdminAddProduct" method="get">
+                                                            <button type="submit" class="btn btn-warning btn-lg">Add product</button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="static">
+                                                        <form action="AdminStatistic" method="get">
+                                                            <button type="submit" class="btn btn-info btn-lg">Statistic</button>
+                                                        </form>
+                                                    </div>
+                                                </div>-->
 
                         <div class="product-container-box">
                             <div class="row">
@@ -194,16 +207,18 @@
                                         <div class="inf-text">
                                             <h6>${book.name}</h6>
                                             <h6 style="color: brown; font-style: italic">$${book.price}</h6>
-                                            <div class="d-flex">
-                                                <a href="AdminEdit?pid=${book.pid}">
-                                                    <button type="submit" class="btn btn-primary btn-small">Edit product</button>
-                                                </a>
-                                                <a href="AdminDelete?pid=${book.pid}">
-                                                    <button type="submit" class="btn btn-danger btn-small">Delete product</button>
-                                                </a>
-                                            </div>
                                         </div>
                                     </div>
+                                </c:forEach>
+
+                            </div>
+                            <div class="pagination-container">
+                                <c:forEach begin="${1}" end="${requestScope.num}" var="i">
+                                    <a class="${i==page?"active":""}" href="adminlist?page=${i}">
+                                        <span class="page-item ${i==page?"active":""}">
+                                            ${i}
+                                        </span>
+                                    </a>
                                 </c:forEach>
                             </div>
 
@@ -280,5 +295,19 @@
             </div>
         </footer>
         <!-- End Footer  -->
+        <script type="text/javascript">
+            var deleteLinks = document.querySelectorAll('.delete');
+            for (var i = 0; i < deleteLinks.length; i++) {
+                deleteLinks[i].addEventListener('click', function (event) {
+                    event.preventDefault();
+
+                    var choice = confirm(this.getAttribute('data-confirm'));
+
+                    if (choice) {
+                        window.location.href = this.getAttribute('href');
+                    }
+                });
+            }
+        </script>
     </body>
 </html>

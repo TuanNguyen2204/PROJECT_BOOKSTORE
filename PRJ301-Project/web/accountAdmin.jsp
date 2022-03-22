@@ -101,7 +101,7 @@
                             <div class="account-box">
                                 <div class="service-box">
                                     <div class="service-icon">
-                                        <a href="adminlist"><i class="fas fa-clipboard-list"></i> </a>
+                                        <a href="AdminManage"><i class="fas fa-clipboard-list"></i> </a>
                                     </div>
                                     <div class="service-desc">
                                         <h4>Manage Product</h4>

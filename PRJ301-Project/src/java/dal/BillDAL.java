@@ -59,4 +59,15 @@ public class BillDAL extends DBContext{
         }
         return null; 
     }
+    
+    public void deleteProductByPid(String pid) {
+        String xSql = "DELETE Bills WHERE pid= ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(xSql);
+            ps.setString(1, pid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -39,8 +39,9 @@ public class AdminListProduct extends HttpServlet {
         String search = (String) request.getParameter("search");
         String sort = (String) request.getParameter("sort");
         List<Product> bookList = new ArrayList<>();
+
         //////////////////////////////////////////
-         if ((category == null || category.equals("")) && (search == null || search.equals(""))) {
+        if ((category == null || category.equals("")) && (search == null || search.equals(""))) {
             bookList = pDAL.getAllProduct();
             if (sort == null || sort.equals("")) {
                 bookList = pDAL.getAllProduct();
@@ -80,8 +81,26 @@ public class AdminListProduct extends HttpServlet {
             }
         }
 
-        request.setAttribute("bookList", bookList);
+//        request.setAttribute("bookList", bookList);
         ///////////////////////////////////////////
+        
+        int page, numperpage = 6;
+        int size = bookList.size();
+        int num = (size % 6 == 0 ? (size / 6) : ((size / 6)) + 1);//so trang
+        String xpage = request.getParameter("page");
+        if (xpage == null) {
+            page = 1;
+        } else {
+            page = Integer.parseInt(xpage);
+        }
+        int start, end;
+        start = (page - 1) * numperpage;
+        end = Math.min(page * numperpage, size);
+        List<Product> list = pDAL.getListByPage(bookList, start, end);
+        request.setAttribute("searchname", search);
+        request.setAttribute("page", page);
+        request.setAttribute("num", num);
+        request.setAttribute("bookList", list);
         try {
             String pid = request.getParameter("pid");
             int amount = Integer.parseInt(request.getParameter("amount"));

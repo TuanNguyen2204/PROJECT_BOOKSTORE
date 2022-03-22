@@ -4,6 +4,8 @@
     Author     : Tuan
 --%>
 
+<%@page import="java.util.HashMap"%>
+<%@page import="java.lang.String"%>
 <%@page import="model.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -14,6 +16,8 @@
     Account acc = new Account(user, pass);
     String catid = request.getParameter("catid");
     session.setAttribute("catid", catid);
+
+    HashMap<String, Integer> hashCart = (HashMap<String, Integer>) session.getAttribute("hashCart");
 %>
 <html>
     <head>
@@ -76,8 +80,9 @@
                             <c:otherwise>
                                 <a href="cart">
                                     <i class="fa fa-shopping-bag"></i>
-                                    <span class="badge"></span>
-                                    <p>My Cart</p>
+
+                                    <p style="position: relative">My Cart</p>
+                                    <p class="badge" style="color: blue; margin-bottom: 10px; position: absolute">${hashCart.size()}</p>
                                 </a>
                             </c:otherwise>
                         </c:choose>
@@ -141,7 +146,7 @@
                                 <button type="submit"> <i class="fa fa-search"></i> </button>
                             </form>
                         </div>
-                        
+
                         <c:if test="${bookList.size()==0}">
                             <h3 style="color: brown">Not found Product like "${searchname}"</h3>
                         </c:if>
@@ -157,11 +162,12 @@
                                                     <c:choose>
                                                         <c:when test="${sessionScope.user == null || sessionScope.pass == null}">
                                                             <a href="signin"><i class="fa-solid fa-cart-shopping"></i></a>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <a href="home?catid=${catid}&pid=${book.pid}&amount=1" data-toggle="tooltip" data-placement="right" title="Add to cart"><i class="fa-solid fa-cart-shopping"></i></a>
-                                                        </c:otherwise>
-                                                    </c:choose>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                            <a href="home?catid=${catid}&pid=${book.pid}&amount=1" data-toggle="tooltip" 
+                                                               data-placement="right" title="Add to cart" id="demo"><i class="fa-solid fa-cart-shopping"></i></a>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     <a href="detail?pid=${book.pid}" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                 </div>
                                             </div>

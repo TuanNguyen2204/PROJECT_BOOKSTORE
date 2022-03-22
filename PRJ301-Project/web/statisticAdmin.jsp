@@ -37,7 +37,7 @@
 
     </head>
     <body>
-          <!--Start Main All Page-->
+        <!--Start Main All Page-->
         <header class="main-header">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container">
@@ -85,67 +85,53 @@
                 </div>
             </div>
         </div>
-        
-         <!--Book Product-->
+
+        <!--Book Product-->
         <div class="shop-box-inner">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-9 shop-content-right">
+                    <div class="shop-content-right">
                         <div class="product-container-box">
                             <h1 class="pt-3 pb-3 text-center" style="color: brown"><b>TOP 3 Best Seller Product</b></h1>
                             <div class="row text-center">
                                 <c:forEach var="book" items="${top3Product}">
                                     <div class="col-lg-4 mb-4">
                                         <div class="product-single">
-                                            <div>
+                                            <a href="detail?pid=${book.pid}" target="_blank">
                                                 <img src="products/${book.image}" class="img-fluid" alt="Product image">
-                                                <div class="product-action d-flex justify-content-between">
-                                                    <c:choose>
-                                                        <c:when test="${sessionScope.user == null || sessionScope.pass == null}">
-                                                            <a href="signin"><i class="fa-solid fa-cart-shopping"></i></a>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <a href="home?catid=${catid}&pid=${book.pid}&amount=1" data-toggle="tooltip" data-placement="right" title="Add to cart"><i class="fa-solid fa-cart-shopping"></i></a>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <a href="detail?pid=${book.pid}" target="_blank" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                </div>
-                                            </div>
+                                            </a>
                                         </div>
-                                        <div class="inf-text">
+                                            <div class="inf-text" style="margin: 0 68px;">
                                             <h6>${book.name}</h6>
                                             <h6 style="color: brown; font-style: italic">$${book.price}</h6>
                                         </div>
                                     </div>
                                 </c:forEach>
-                                
-                                
-                            <section class="pt-10">
-                                <center>
-                                    <h1 class="pt-3 pb-3 text-center" style="color: darkred"><i>TOP 5 CUSTOMER</i></h1>
-                                </center>
 
-                                <table class="table">
-                                    <tr>
-                                        <th>Username</th>
-                                        <th>Full Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Address</th>
-                                        <th>role</th>
-                                    </tr>
-                                    <c:forEach items="${top5User}" var="acc">
+
+                                <div class="row pt-10 text-center">
+                                    <h1 class="pt-3 pb-3 text-center" style="color: darkred; margin-left: 35%"><i>TOP 5 CUSTOMER</i></h1>
+                                    <table class="table">
                                         <tr>
-                                            <td>${acc.username}</td>
-                                            <td>${acc.fullname}</td>
-                                            <td>${acc.email}</td>
-                                            <td>${acc.phone}</td>
-                                            <td>${acc.address}</td>
-                                            <td>${acc.role == 1 ? "Admin" : "User"}</td>
+                                            <th>Username</th>
+                                            <th>Full Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Address</th>
+                                            <th>role</th>
                                         </tr>
-                                    </c:forEach>
-                                </table>
-                            </section>
+                                        <c:forEach items="${top5User}" var="acc">
+                                            <tr>
+                                                <td>${acc.username}</td>
+                                                <td>${acc.fullname}</td>
+                                                <td>${acc.email}</td>
+                                                <td>${acc.phone}</td>
+                                                <td>${acc.address}</td>
+                                                <td>${acc.role == 1 ? "Admin" : "User"}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

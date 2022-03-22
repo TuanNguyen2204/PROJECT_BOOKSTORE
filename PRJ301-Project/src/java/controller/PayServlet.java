@@ -68,6 +68,8 @@ public class PayServlet extends HttpServlet {
         listPay = (List<Product>) session.getAttribute("listCart");
         pDAL.removeAllCart((String) session.getAttribute("user"));
         session.setAttribute("listCart", null);
+        session.setAttribute("mycart", null);
+        session.setAttribute("hashCart", null);
         for (Product p : listPay) {
             pDAL.addToBill((String) session.getAttribute("user"), p.getPid(), p.getQuantity(), p.getTotal());
             

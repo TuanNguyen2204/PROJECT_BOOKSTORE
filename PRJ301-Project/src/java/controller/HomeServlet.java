@@ -170,6 +170,7 @@ public class HomeServlet extends HttpServlet {
                     pDAL.addToCart(username, pid, hashCart.get(pid));
                     session.setAttribute("hashCart", hashCart);
                 }
+               
                 request.getRequestDispatcher("shop.jsp").include(request, response);
             }
         } catch (Exception e) {

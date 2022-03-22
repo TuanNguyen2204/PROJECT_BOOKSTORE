@@ -33,6 +33,8 @@
             <div class="bg" style="background-image: url('images/banner-01.png');"></div>
             <div class="contents">
                 <div class="container">
+                    <!--error mesage filter-->
+                    <span style="color:red; margin-left: 43%; text-align: center; line-height: 50px;">${message}</span>
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-6">
                             <div class="form-block">
@@ -67,8 +69,7 @@
                                             <br />
                                         </c:otherwise>
                                     </c:choose>
-                                            <!--error mesage filter-->
-                                            <span style="color:red; margin-left: 40%">${message}</span>
+
                                     <input type="submit" value="Log In" class="btn btn-block btn-outline-secondary" id="btn-primary"> 
 
 

@@ -60,8 +60,11 @@
                         <!--link to cart-->
                         <a href="cart.jsp">
                             <i class="fa fa-shopping-bag"></i>
-                            <p>My Cart</p>
-
+                            <p>My Cart
+                                <c:if test="${mycart>0}">
+                                    (${hashCart.size()})
+                                </c:if>
+                            </p>
                         </a>
                     </div>
                 </div>
@@ -86,59 +89,66 @@
         <div class="cart-box">
             <div class="container">
                 <div class="row">
-                    <!--//message-->
-                    <c:if test="${sessionScope.maxMsg != null}">
-                        <h5 style="float: right; color: brown;margin-left: 60%">${sessionScope.maxMsg}</h5>
-                    </c:if>
-                    <table class="table text-center">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Images</th>
-                                <th>Book Name</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                                <th>Remove</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${listCart}" var="cart">
-                                <tr>
-                                    <td class="img-product-cart" style="width: 120px">
-                                        <a href="detail?pid=${cart.pid}" target="_blank">
-                                            <img class="img-fluid" src="products/${cart.image}" alt="product" />
-                                        </a>
-                                    </td>
-                                    <td class="name-pr">
-                                        <a href="detail?pid=${cart.pid}" target="_blank">
-                                            ${cart.name}
-                                        </a>
-                                    </td>
-                                    <td class="price-pr">
-                                        <p>$ ${cart.price}</p>
-                                    </td>
+                    <c:choose>
+                        <c:when test="${sessionScope.mycart == null || sessionScope.mycart == 0}">
+                            <h1 style="color: brown">Cart is empty!</h1>
+                        </c:when>
+                        <c:otherwise>
+                            <!--//message-->
+                            <c:if test="${sessionScope.maxMsg != null}">
+                                <h5 style="float: right; color: brown;margin-left: 60%">${sessionScope.maxMsg}</h5>
+                            </c:if>
+                            <table class="table text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Images</th>
+                                        <th>Book Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th>Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${listCart}" var="cart">
+                                        <tr>
+                                            <td class="img-product-cart" style="width: 120px">
+                                                <a href="detail?pid=${cart.pid}" target="_blank">
+                                                    <img class="img-fluid" src="products/${cart.image}" alt="product" />
+                                                </a>
+                                            </td>
+                                            <td class="name-pr">
+                                                <a href="detail?pid=${cart.pid}" target="_blank">
+                                                    ${cart.name}
+                                                </a>
+                                            </td>
+                                            <td class="price-pr">
+                                                <p>$ ${cart.price}</p>
+                                            </td>
 
-                                    <td class="quantity-box">
-                                        <form action="quantityCart?pid=${cart.pid}">
-                                            <input type="hidden" name ="pid" value="${cart.pid}"/>
-                                            <button type="submit" formaction="quantityCart" formmethod="get"  class="btn btn-danger btn-sm"> - </button>
-                                            ${cart.quantity}
-                                            <button type="submit" formaction="quantityCart" formmethod="post" class="btn btn-success btn-sm"> + </button>
-                                        </form>
-                                    </td>
+                                            <td class="quantity-box">
+                                                <form action="quantityCart?pid=${cart.pid}">
+                                                    <input type="hidden" name ="pid" value="${cart.pid}"/>
+                                                    <button type="submit" formaction="quantityCart" formmethod="get"  class="btn btn-danger btn-sm"> - </button>
+                                                    ${cart.quantity}
+                                                    <button type="submit" formaction="quantityCart" formmethod="post" class="btn btn-success btn-sm"> + </button>
+                                                </form>
+                                            </td>
 
-                                    <td class="total-pr">
-                                        <p>$ ${cart.getTotal()}</p>
-                                    </td>
-                                    <td class="remove-pr">
-                                        <a href="cart?pid=${cart.pid}" method="post">
-                                            <i class="fas fa-times"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                                            <td class="total-pr">
+                                                <p>$ ${cart.getTotal()}</p>
+                                            </td>
+                                            <td class="remove-pr">
+                                                <a href="cart?pid=${cart.pid}" method="post">
+                                                    <i class="fas fa-times"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="row my-5">
                     <div class="col-lg-6 col-sm-6">
@@ -220,6 +230,5 @@
             </div>
         </footer>
         <!-- End Footer  -->
-
     </body>
 </html>

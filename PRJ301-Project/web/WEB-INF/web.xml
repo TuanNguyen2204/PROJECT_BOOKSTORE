@@ -68,6 +68,10 @@
         <servlet-name>AdminStatistic</servlet-name>
         <servlet-class>adminController.AdminStatistic</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminManageProduct</servlet-name>
+        <servlet-class>adminController.AdminManageProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/signin</url-pattern>
@@ -136,12 +140,16 @@
         <servlet-name>AdminStatistic</servlet-name>
         <url-pattern>/AdminStatistic</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminManageProduct</servlet-name>
+        <url-pattern>/AdminManage</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-     <welcome-file-list>
+    <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
 </web-app>
