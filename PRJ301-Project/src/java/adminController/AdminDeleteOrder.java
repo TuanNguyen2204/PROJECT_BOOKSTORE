@@ -5,24 +5,19 @@
  */
 package adminController;
 
-import dal.CategoriesDAL;
-import dal.ProductDAL;
+import dal.BillDAL;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Categories;
-import model.Product;
 
 /**
  *
  * @author Tuan
  */
-public class AdminEditProduct extends HttpServlet {
+public class AdminDeleteOrder extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,10 +35,10 @@ public class AdminEditProduct extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminEditProduct</title>");            
+            out.println("<title>Servlet AdminDeleteOrder</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminEditProduct at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminDeleteOrder at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,15 +56,9 @@ public class AdminEditProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String pid = request.getParameter("pid");
-        Product p = new Product();
-        p = new ProductDAL().getProductById(pid);
-        List<Categories> listCategories = new ArrayList<Categories>(); 
-        CategoriesDAL dal = new CategoriesDAL();
-        listCategories = dal.getAllCategories();
-        request.setAttribute("listCategories", listCategories);
-        request.setAttribute("product", p);
-        request.getRequestDispatcher("editProductAdmin.jsp").forward(request, response);
+        String bid = request.getParameter("bid");
+        new BillDAL().deleteProductByBid(bid);
+        response.sendRedirect("AdminManageOrder");
     }
 
     /**
@@ -83,17 +72,7 @@ public class AdminEditProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String pid = request.getParameter("pid");
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        float price = Float.parseFloat(request.getParameter("price"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        String categories = request.getParameter("catid"); 
-        String images = request.getParameter("images");
-        Product p = new Product(pid, name, description, price, quantity, categories, images);
-        ProductDAL dal = new ProductDAL();
-        dal.updateProductById(p);
-        response.sendRedirect("AdminManage");
+        processRequest(request, response);
     }
 
     /**

@@ -72,6 +72,18 @@
         <servlet-name>AdminManageProduct</servlet-name>
         <servlet-class>adminController.AdminManageProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminManageOrder</servlet-name>
+        <servlet-class>adminController.AdminManageOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDeleteOrder</servlet-name>
+        <servlet-class>adminController.AdminDeleteOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminEditOrder</servlet-name>
+        <servlet-class>adminController.AdminEditOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/signin</url-pattern>
@@ -143,6 +155,18 @@
     <servlet-mapping>
         <servlet-name>AdminManageProduct</servlet-name>
         <url-pattern>/AdminManage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminManageOrder</servlet-name>
+        <url-pattern>/AdminManageOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDeleteOrder</servlet-name>
+        <url-pattern>/AdminDeleteOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminEditOrder</servlet-name>
+        <url-pattern>/AdminEditOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

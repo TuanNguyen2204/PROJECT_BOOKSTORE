@@ -1,20 +1,23 @@
 <%-- 
-    Document   : cart
-    Created on : Mar 8, 2022, 9:26:29 PM
+    Document   : editProductAdmin
+    Created on : Mar 13, 2022, 12:38:39 PM
     Author     : Tuan
 --%>
 
-<%@page import="java.util.HashMap"%>
+<%@page import="dal.AccountDAL"%>
+<%@page import="model.Account"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <%
-    HashMap<String, Integer> hashCart = (HashMap<String, Integer>) session.getAttribute("hashCart");
-%>  
+    AccountDAL aDAL = new AccountDAL();
+    Account currAcc = aDAL.getAccountByUsername((String) session.getAttribute("user"));
+    request.setAttribute("currAcc", currAcc);
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cart</title>
+        <title>Admin</title>
 
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -30,7 +33,7 @@
 
         <!--CSS-->
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="css/shop.css" rel="stylesheet" type="text/css"/>
+
     </head>
     <body>
         <!--Start Main All Page-->
@@ -42,17 +45,17 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <!--link to home page-->
-                        <a class="navbar-brand" href="home"><img src="images/logo.png" class="logo" alt=""></a>
+                        <a class="navbar-brand" href="adminlist"><img src="images/logo.png" class="logo" alt=""></a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                                 <!--link to home page-->
-                                <a class="nav-link active" href="home">Home</a>
+                                <a class="nav-link active" href="adminlist">Home</a>
                             </li>
                             <li class="nav-item active">
                                 <!--link to account page-->
-                                <a class="nav-link" href="account.jsp">Account <i class="fas fa-user-circle"></i></a>
+                                <a class="nav-link" href="accountAdmin.jsp">Account <i class="fas fa-user-circle"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -60,11 +63,7 @@
                         <!--link to cart-->
                         <a href="cart.jsp">
                             <i class="fa fa-shopping-bag"></i>
-                            <p>My Cart
-                                <c:if test="${mycart>0}">
-                                    (${hashCart.size()})
-                                </c:if>
-                            </p>
+                            <p>My Cart</p>
                         </a>
                     </div>
                 </div>
@@ -76,86 +75,68 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 d-flex justify-content-between">
-                        <h2>Cart</h2>
+                        <h2>Edit Order</h2>
                         <ul class="breadcrumb d-flex align-items-center">
-                            <li class="breadcrumb-item"><a href="home">Home</a></li>
-                            <li class="breadcrumb-item active">Cart</li>
+                            <li class="breadcrumb-item"><a href="account">Account</a></li>
+                            <li class="breadcrumb-item active"> Profile </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="cart-box">
+        <!-- Start Contact Us  -->
+        <div class="contact-box-main">
             <div class="container">
                 <div class="row">
-                    <c:choose>
-                        <c:when test="${sessionScope.mycart == null || sessionScope.mycart == 0}">
-                            <h1 style="color: brown">Cart is empty!</h1>
-                        </c:when>
-                        <c:otherwise>
-                            <!--//message-->
-                            <c:if test="${sessionScope.maxMsg != null}">
-                                <h5 style="float: right; color: brown;margin-left: 60%">${sessionScope.maxMsg}</h5>
-                            </c:if>
-                            <table class="table text-center">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th>Images</th>
-                                        <th>Book Name</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                        <th>Remove</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach items="${listCart}" var="cart">
-                                        <tr>
-                                            <td class="img-product-cart" style="width: 120px">
-                                                <a href="detail?pid=${cart.pid}" target="_blank">
-                                                    <img class="img-fluid" src="products/${cart.image}" alt="product" />
-                                                </a>
-                                            </td>
-                                            <td class="name-pr">
-                                                <a href="detail?pid=${cart.pid}" target="_blank">
-                                                    ${cart.name}
-                                                </a>
-                                            </td>
-                                            <td class="price-pr">
-                                                <p>$ ${cart.price}</p>
-                                            </td>
+                    <div class="col-lg-8 col-sm-12">
+                        <div class="contact-form-right">
+                            <h2><i class="fas fa-user-tag"></i> Update Order</h2>
+                            <form action="AdminEditOrder" method="post">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="name">Id Bill: </label>
+                                            <input type="text" class="form-control" id="name" name="bid" required data-error="Please enter your data" value="<c:out value="${bill.bid}"/>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="a">User name: </label>
+                                            <input type="text" class="form-control" id="a" name="name" required data-error="Please enter your data" value="<c:out value="${bill.username}"/>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="b">ID Product: </label>
+                                            <input type="text" class="form-control" id="b" name="description" required data-error="Please enter your data" value="<c:out value="${bill.pid}"/>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="b">Created Date</label>
+                                            <input type="text" class="form-control" id="b" name="date" required data-error="Please enter your data" value="<c:out value="${bill.date}"/>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label> Price</label>
+                                            <input type="number" min="1" step="0.2" class="form-control" name="price" required data-error="Please enter your data" value="<c:out value="${bill.price}"/>">
+                                        </div>
+                                    </div>
 
-                                            <td class="quantity-box">
-                                                <form action="quantityCart?pid=${cart.pid}">
-                                                    <input type="hidden" name ="pid" value="${cart.pid}"/>
-                                                    <button type="submit" formaction="quantityCart" formmethod="get"  class="btn btn-danger btn-sm"> - </button>
-                                                    ${cart.quantity}
-                                                    <button type="submit" formaction="quantityCart" formmethod="post" class="btn btn-success btn-sm"> + </button>
-                                                </form>
-                                            </td>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Amount </label>
+                                            <input type="number" min="1" step="1" class="form-control" name="amount" required data-error="Please enter your data" value="<c:out value="${bill.amount}"/>">
+                                        </div>
+                                    </div>
 
-                                            <td class="total-pr">
-                                                <p>$ ${cart.getTotal()}</p>
-                                            </td>
-                                            <td class="remove-pr">
-                                                <a href="cart?pid=${cart.pid}" class="delete" data-confirm="Are you sure to delete this item?" method="post">
-                                                    <i class="fas fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-                <div class="row my-5">
-                    <div class="col-lg-6 col-sm-6">
-                    </div>
-                    <div class="col-lg-6 col-sm-6">
-                        <div class="update-box">
-                            <a class="btn btn-outline-danger" href="checkout">CHECKOUT</a>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-outline-primary">Update</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -230,19 +211,9 @@
             </div>
         </footer>
         <!-- End Footer  -->
-        <script type="text/javascript">
-            var deleteLinks = document.querySelectorAll('.delete');
-            for (var i = 0; i < deleteLinks.length; i++) {
-                deleteLinks[i].addEventListener('click', function (event) {
-                    event.preventDefault();
 
-                    var choice = confirm(this.getAttribute('data-confirm'));
 
-                    if (choice) {
-                        window.location.href = this.getAttribute('href');
-                    }
-                });
-            }
-        </script>
+
+        <script src="js/profileValidate.js" type="text/javascript"></script>
     </body>
 </html>
